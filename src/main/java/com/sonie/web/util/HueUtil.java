@@ -10,7 +10,7 @@ public class HueUtil {
 		
 	}
 	
-	public static void putGroupRequest(HueSetSceneRequest request, String user) {
+	public static void putGroupRequest(HueSetSceneRequest request, String ip, String user) {
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.put("http://192.168.1.69/api/" + user + "/groups/"
 				+ request.getGroup() + "/action", request);

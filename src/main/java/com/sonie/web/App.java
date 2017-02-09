@@ -32,13 +32,13 @@ public class App {
 
 	@Scheduled(cron = "0 0 01 * * *")
 	public void dailyJob() throws ParseException {
-		CronJobUtil.setDailySunJobs(poolScheduler(), hue.getUser());
-		CronJobUtil.setGoodMorningJob(poolScheduler(), hue.getUser());
+		CronJobUtil.setDailySunJobs(poolScheduler(), hue.getUser(), hue.getIp());
+		CronJobUtil.setGoodMorningJob(poolScheduler(), hue.getUser(), hue.getIp());
 	}
 
 	@Scheduled(cron = "0 0 02 * * *")
 	public void dailyTurnOff() {
-		CronJobUtil.turnOffAllLights(hue.getUser());
+		CronJobUtil.turnOffAllLights(hue.getUser(), hue.getIp());
 	}
 
 	public static void main(String[] args) throws ParseException {

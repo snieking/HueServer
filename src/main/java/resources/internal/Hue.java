@@ -7,16 +7,26 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "hue")
 public class Hue {
 	private String user;
+	private String ip;
 	private Scenes scenes;
 
 	public String getUser() {
 		return user;
 	}
+	
 
 	public void setUser(String user) {
 		this.user = user;
 	}
 
+	public String getIp() {
+		return ip;
+	}
+	
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+	
 	public Scenes getScene() {
 		return scenes;
 	}

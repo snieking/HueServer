@@ -7,7 +7,7 @@ import resources.internal.HueSetSceneRequest;
 
 public class RunnableUtil {
 	
-	public static Runnable setSunSet(final Logger LOG, final String user) {
+	public static Runnable setSunSet(final Logger LOG, final String user, final String ip) {
 		Runnable runnable = new Runnable() {
 			@Override
 			public void run() {
@@ -19,7 +19,7 @@ public class RunnableUtil {
 				request.setGroup("1");
 				request.setScene("93yv8JekmAneCU9");
 
-				restTemplate.put("http://192.168.1.69/api/" + user + "/groups/"
+				restTemplate.put(ip + "/api/" + user + "/groups/"
 						+ request.getGroup() + "/action", request);
 			}
 		};
@@ -27,7 +27,7 @@ public class RunnableUtil {
 		return runnable;
 	}
 	
-	public static Runnable setSunRise(final Logger LOG, final String user) {
+	public static Runnable setSunRise(final Logger LOG, final String user, final String ip) {
 		Runnable runnable = new Runnable() {
 			@Override
 			public void run() {
@@ -39,7 +39,7 @@ public class RunnableUtil {
 				request.setGroup("1");
 				request.setOn(false);
 
-				restTemplate.put("http://192.168.1.69/api/" + user + "/groups/"
+				restTemplate.put(ip + "/api/" + user + "/groups/"
 						+ request.getGroup() + "/action", request);
 			}
 		};
@@ -47,7 +47,7 @@ public class RunnableUtil {
 		return runnable;
 	}
 
-	public static Runnable setGoodMorning(final Logger LOG, final String user) {
+	public static Runnable setGoodMorning(final Logger LOG, final String user, final String ip) {
 		Runnable runnable = new Runnable() {
 			@Override
 			public void run() {
@@ -59,7 +59,7 @@ public class RunnableUtil {
 				request.setGroup("1");
 				request.setScene("goodmorning");
 
-				restTemplate.put("http://192.168.1.69/api/" + user + "/groups/"
+				restTemplate.put(ip + "/api/" + user + "/groups/"
 						+ request.getGroup() + "/action", request);
 			}
 		};

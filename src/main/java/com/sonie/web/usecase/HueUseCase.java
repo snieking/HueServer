@@ -25,8 +25,9 @@ public class HueUseCase {
 		HueSetSceneResponse response = new HueSetSceneResponse();
 		
 		String user = hue.getUser();
-		LOG.info("User was [{}]", user);
-		HueUtil.putGroupRequest(request, user);
+		String ip = hue.getIp();
+		
+		HueUtil.putGroupRequest(request, user, ip);
 		
 		response.setResponseHeader(ResponseBuilder.createSuccessfulResponse());
 		result.setResult(response);

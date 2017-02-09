@@ -23,6 +23,7 @@ build.log
 _site/
 .*.md.html
 manifest.yml
+config.yml
 MANIFEST.MF
 settings.xml
 activemq-data
