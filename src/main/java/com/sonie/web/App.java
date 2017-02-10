@@ -45,13 +45,9 @@ public class App {
 
 	@Scheduled(cron = "0 0 01 * * *")
 	public void dailyJob() throws ParseException {
-		CronJobUtil.setDailySunJobs(poolScheduler(), getHue());
+		CronJobUtil.setDailySunJobs(poolScheduler(), configuration);
 		CronJobUtil.setGoodMorningJob(poolScheduler(), getHue());
-	}
-
-	@Scheduled(cron = "0 0 02 * * *")
-	public void dailyTurnOff() {
-		CronJobUtil.turnOffAllLights(getHue());
+		CronJobUtil.setGoodNight(poolScheduler(), configuration.getHue());
 	}
 
 	public static void main(String[] args) throws ParseException {

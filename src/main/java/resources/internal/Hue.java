@@ -39,7 +39,6 @@ public class Hue {
 
 	public static class Scene {
 		private Sunstatus sunstatus;
-		private Disable disable;
 		private GoodMorning goodMorning;
 		private GoodNight goodNight;
 
@@ -49,14 +48,6 @@ public class Hue {
 
 		public void setSunstatus(Sunstatus sunstatus) {
 			this.sunstatus = sunstatus;
-		}
-
-		public Disable getDisable() {
-			return disable;
-		}
-
-		public void setDisable(Disable disable) {
-			this.disable = disable;
 		}
 
 		public GoodMorning getGoodMorning() {
@@ -105,38 +96,9 @@ public class Hue {
 			}
 		}
 
-		public static class Disable {
-			private boolean enabled;
-			private String id;
-			private String group;
-
-			public boolean isEnabled() {
-				return enabled;
-			}
-
-			public void setEnabled(boolean enabled) {
-				this.enabled = enabled;
-			}
-
-			public String getId() {
-				return id;
-			}
-
-			public void setId(String id) {
-				this.id = id;
-			}
-
-			public String getGroup() {
-				return group;
-			}
-
-			public void setGroup(String group) {
-				this.group = group;
-			}
-		}
-
 		public static class GoodMorning {
 			private boolean enabled;
+			private String time;
 			private String id;
 			private String group;
 
@@ -146,6 +108,14 @@ public class Hue {
 
 			public void setEnabled(boolean enabled) {
 				this.enabled = enabled;
+			}
+
+			public String getTime() {
+				return time;
+			}
+
+			public void setTime(String time) {
+				this.time = time;
 			}
 
 			public String getId() {
@@ -168,6 +138,7 @@ public class Hue {
 
 		public static class GoodNight {
 			private boolean enabled;
+			private String time;
 			private String id;
 			private String group;
 
@@ -177,6 +148,14 @@ public class Hue {
 
 			public void setEnabled(boolean enabled) {
 				this.enabled = enabled;
+			}
+
+			public String getTime() {
+				return time;
+			}
+
+			public void setTime(String time) {
+				this.time = time;
 			}
 
 			public String getId() {
@@ -195,7 +174,5 @@ public class Hue {
 				this.group = group;
 			}
 		}
-
 	}
-
 }

@@ -5,6 +5,7 @@ import org.springframework.web.client.RestTemplate;
 
 import resources.internal.Hue;
 import resources.internal.Hue.Scene.GoodMorning;
+import resources.internal.Hue.Scene.GoodNight;
 import resources.internal.Hue.Scene.Sunstatus;
 import resources.internal.HueSetSceneRequest;
 
@@ -64,6 +65,27 @@ public class RunnableUtil {
 				HueSetSceneRequest request = new HueSetSceneRequest();
 				request.setGroup(goodMorning.getGroup());
 				request.setScene(goodMorning.getId());
+
+				restTemplate.put(hue.getIp() + "/api/" + hue.getUser() + "/groups/" + request.getGroup() + "/action",
+						request);
+			}
+		};
+
+		return runnable;
+	}
+
+	public static Runnable setGoodNight(final Logger LOG, final Hue hue) {
+		Runnable runnable = new Runnable() {
+			@Override
+			public void run() {
+				GoodNight goodNight = hue.getScene().getGoodNight();
+				LogUtil.logWithTime(LOG, "Good night!");
+
+				RestTemplate restTemplate = new RestTemplate();
+
+				HueSetSceneRequest request = new HueSetSceneRequest();
+				request.setGroup(goodNight.getGroup());
+				request.setOn(false);
 
 				restTemplate.put(hue.getIp() + "/api/" + hue.getUser() + "/groups/" + request.getGroup() + "/action",
 						request);

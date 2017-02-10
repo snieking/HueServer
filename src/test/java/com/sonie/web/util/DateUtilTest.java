@@ -11,8 +11,8 @@ import java.util.Calendar;
 import org.junit.Test;
 
 public class DateUtilTest {
-	SimpleDateFormat format =new SimpleDateFormat("dd/MM/yyyy");
-	
+	SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
 	@Test
 	public void testWeekday() throws ParseException {
 		assertEquals("Monday", DateUtil.getWeekday(format.parse("06/02/2017")));
@@ -23,7 +23,7 @@ public class DateUtilTest {
 		assertEquals("Saturday", DateUtil.getWeekday(format.parse("11/02/2017")));
 		assertEquals("Sunday", DateUtil.getWeekday(format.parse("12/02/2017")));
 	}
-	
+
 	@Test
 	public void isWeekday() {
 		assertFalse(DateUtil.isWeekday("Saturday"));
@@ -34,10 +34,16 @@ public class DateUtilTest {
 		assertTrue(DateUtil.isWeekday("Thursday"));
 		assertTrue(DateUtil.isWeekday("Friday"));
 	}
-	
+
+	@Test
+	public void time12To24h() throws ParseException {
+		assertEquals("12:05:02", DateUtil.convert12To24("2:05:02 PM", -2));
+	}
+
 	@Test
 	public void cronJobDate() {
 		Calendar calendar = Calendar.getInstance();
-		assertEquals("0 14 19 " + calendar.get(Calendar.DAY_OF_MONTH) + " " + (calendar.get(Calendar.MONTH)+1) + " *", DateUtil.getCronDate("19:14:00"));
+		assertEquals("0 14 19 " + calendar.get(Calendar.DAY_OF_MONTH) + " " + (calendar.get(Calendar.MONTH) + 1) + " *",
+				DateUtil.getCronDate("19:14:00"));
 	}
 }

@@ -1,0 +1,45 @@
+:numbered:
+
+= HueServer
+
+== Instructions
+
+Create a config.yml file in the same path as the *.jar* file with the following data
+
+[source,yaml]
+application:
+  general:
+    # Specify how many hours before or after UTC you are. (For example: 1 or -5)
+    timeZone:
+    # Specify the coordinates for where you want to collect data for such as sun hours.
+    latitude:
+    longitude:
+  hue:
+    # Your username for your Hue bridge API. See https://developers.meethue.com/documentation/getting-started
+    user:
+    # IP to your Hue bridge, check your router.
+    ip:
+    scene:
+      # Runs everyday at sunrise and sunset.
+      sunstatus:
+        enabled: true
+        # Scene that will be set on sunset.
+        id:
+        # Group of lamps that will be enabled.
+        group:
+      # Enables lights in the morning.
+      goodMorning:
+        enabled: true
+        # Time that lights will turn on in the morning (Ex: 05:00:00).
+        time:
+        # Id of the scene that will be set.
+        id:
+        # Group of lamps that will be enabled.
+        group:
+      # Disables lights in the night.
+      goodNight:
+        enabled: true
+        # Time that lamps will be disabled (Ex: 02:00:00).
+        time:
+        # Group of lamps that will be disabled.
+        group:
