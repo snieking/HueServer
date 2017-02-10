@@ -1,19 +1,16 @@
 package resources.internal;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
-@ConfigurationProperties(prefix = "hue")
+@ConfigurationProperties(prefix = "application.hue")
 public class Hue {
 	private String user;
 	private String ip;
-	private Scenes scenes;
+	private Scene scene;
 
 	public String getUser() {
 		return user;
 	}
-	
 
 	public void setUser(String user) {
 		this.user = user;
@@ -22,22 +19,29 @@ public class Hue {
 	public String getIp() {
 		return ip;
 	}
-	
+
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
-	
-	public Scenes getScene() {
-		return scenes;
+
+	public Scene getScene() {
+		return scene;
 	}
 
-	public void setScene(Scenes scenes) {
-		this.scenes = scenes;
+	public void setScene(Scene scene) {
+		this.scene = scene;
 	}
 
-	public class Scenes {
+	@Override
+	public String toString() {
+		return "app {" + "user='" + user + "'" + "ip='" + ip + "'" + "scenes='" + scene + "'";
+	}
+
+	public static class Scene {
 		private Sunstatus sunstatus;
 		private Disable disable;
+		private GoodMorning goodMorning;
+		private GoodNight goodNight;
 
 		public Sunstatus getSunstatus() {
 			return sunstatus;
@@ -55,7 +59,23 @@ public class Hue {
 			this.disable = disable;
 		}
 
-		public class Sunstatus {
+		public GoodMorning getGoodMorning() {
+			return goodMorning;
+		}
+
+		public void setGoodMorning(GoodMorning goodMorning) {
+			this.goodMorning = goodMorning;
+		}
+
+		public GoodNight getGoodNight() {
+			return goodNight;
+		}
+
+		public void setGoodNight(GoodNight goodNight) {
+			this.goodNight = goodNight;
+		}
+
+		public static class Sunstatus {
 			private boolean enabled;
 			private String id;
 			private String group;
@@ -85,7 +105,68 @@ public class Hue {
 			}
 		}
 
-		public class Disable {
+		public static class Disable {
+			private boolean enabled;
+			private String id;
+			private String group;
+
+			public boolean isEnabled() {
+				return enabled;
+			}
+
+			public void setEnabled(boolean enabled) {
+				this.enabled = enabled;
+			}
+
+			public String getId() {
+				return id;
+			}
+
+			public void setId(String id) {
+				this.id = id;
+			}
+
+			public String getGroup() {
+				return group;
+			}
+
+			public void setGroup(String group) {
+				this.group = group;
+			}
+		}
+
+		public static class GoodMorning {
+			private boolean enabled;
+			private String id;
+			private String group;
+
+			public boolean isEnabled() {
+				return enabled;
+			}
+
+			public void setEnabled(boolean enabled) {
+				this.enabled = enabled;
+			}
+
+			public String getId() {
+				return id;
+			}
+
+			public void setId(String id) {
+				this.id = id;
+			}
+
+			public String getGroup() {
+				return group;
+			}
+
+			public void setGroup(String group) {
+				this.group = group;
+			}
+
+		}
+
+		public static class GoodNight {
 			private boolean enabled;
 			private String id;
 			private String group;

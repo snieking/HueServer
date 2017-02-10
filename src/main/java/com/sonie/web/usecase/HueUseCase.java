@@ -9,7 +9,7 @@ import org.springframework.web.context.request.async.DeferredResult;
 import com.sonie.web.util.HueUtil;
 import com.sonie.web.util.ResponseBuilder;
 
-import resources.internal.Hue;
+import resources.internal.Configuration;
 import resources.internal.HueSetSceneRequest;
 import resources.internal.HueSetSceneResponse;
 
@@ -18,14 +18,14 @@ public class HueUseCase {
 	private static final Logger LOG = LoggerFactory.getLogger(HueUseCase.class);
 	
 	@Autowired
-	private Hue hue;
+	private Configuration configuration;
 	
 	public DeferredResult<HueSetSceneResponse> setSceneUseCase(HueSetSceneRequest request) {
 		DeferredResult<HueSetSceneResponse> result = new DeferredResult<>();
 		HueSetSceneResponse response = new HueSetSceneResponse();
 		
-		String user = hue.getUser();
-		String ip = hue.getIp();
+		String user = configuration.getHue().getUser();
+		String ip = configuration.getHue().getIp();
 		
 		HueUtil.putGroupRequest(request, user, ip);
 		

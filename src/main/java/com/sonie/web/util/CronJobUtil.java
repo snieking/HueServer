@@ -13,31 +13,36 @@ import org.springframework.web.client.RestTemplate;
 
 import com.sonie.web.resources.weather.SunStatusResponse;
 
+import resources.internal.Hue;
+import resources.internal.Hue.Scene.GoodNight;
 import resources.internal.HueSetSceneRequest;
 
 @EnableScheduling
 public class CronJobUtil {
 	private static final Logger LOG = LoggerFactory.getLogger(CronJobUtil.class);
-	
+
 	private CronJobUtil() {
-		
+
 	}
 
-	public static void setDailySunJobs(TaskScheduler scheduler, String user, String ip) throws ParseException {
-		RestTemplate restTemplate = new RestTemplate();
-		SunStatusResponse response = restTemplate.getForObject(
-				"http://api.sunrise-sunset.org/json?lat=59.200197&lng=17.828536&date=today", SunStatusResponse.class);
+	public static void setDailySunJobs(TaskScheduler scheduler, Hue hue) throws ParseException {
+		if (hue.getScene().getSunstatus().isEnabled()) {
+			RestTemplate restTemplate = new RestTemplate();
+			SunStatusResponse response = restTemplate.getForObject(
+					"http://api.sunrise-sunset.org/json?lat=59.200197&lng=17.828536&date=today",
+					SunStatusResponse.class);
 
-		String set = DateUtil.convert12To24(response.getResults().getSunset());
-		LOG.info("Sunset scheduled for [{}]", set);
-		scheduler.schedule(RunnableUtil.setSunSet(LOG, user, ip), new CronTrigger(DateUtil.getCronDate(set)));
+			String set = DateUtil.convert12To24(response.getResults().getSunset());
+			LOG.info("Sunset scheduled for [{}]", set);
+			scheduler.schedule(RunnableUtil.setSunSet(LOG, hue), new CronTrigger(DateUtil.getCronDate(set)));
 
-		String rise = DateUtil.convert12To24(response.getResults().getSunrise());
-		LOG.info("Sunrise scheduled for [{}]", rise);
-		scheduler.schedule(RunnableUtil.setSunRise(LOG, user, ip), new CronTrigger(DateUtil.getCronDate(rise)));
+			String rise = DateUtil.convert12To24(response.getResults().getSunrise());
+			LOG.info("Sunrise scheduled for [{}]", rise);
+			scheduler.schedule(RunnableUtil.setSunRise(LOG, hue), new CronTrigger(DateUtil.getCronDate(rise)));
+		}
 	}
-	
-	public static void setSnow(String user, String ip) {
+
+	public static void setSnow(Hue hue) {
 		LogUtil.logWithTime(LOG, "Set snow");
 
 		HueSetSceneRequest request = new HueSetSceneRequest();
@@ -45,36 +50,30 @@ public class CronJobUtil {
 		request.setOn(true);
 		request.setScene("93yv8JekmAneCU9");
 
-		HueUtil.putGroupRequest(request, user, ip);
-	}
-	
-	
-	
-	@Scheduled
-	public static void turnOffAllLights(String user, String ip) {
-		LogUtil.logWithTime(LOG, "Turn off all lights");
-		
-		HueSetSceneRequest request = new HueSetSceneRequest();
-		request.setGroup("6");
-		request.setOn(false);
-		
-		HueUtil.putGroupRequest(request, user, ip);
+		HueUtil.putGroupRequest(request, hue.getUser(), hue.getIp());
 	}
 
-	public static void setGoodMorningJob(TaskScheduler scheduler, String user, String ip) throws ParseException {
-		if(DateUtil.isWeekday(DateUtil.getWeekday(new Date()))) {
-			scheduler.schedule(RunnableUtil.setGoodMorning(LOG, user, ip), new CronTrigger(DateUtil.getCronDate("04:59:00")));
+	@Scheduled
+	public static void turnOffAllLights(Hue hue) {
+		GoodNight goodNight = hue.getScene().getGoodNight();
+		if (goodNight.isEnabled()) {
+			LogUtil.logWithTime(LOG, "Turn off all lights");
+
+			HueSetSceneRequest request = new HueSetSceneRequest();
+			request.setGroup(goodNight.getGroup());
+			request.setOn(false);
+
+			HueUtil.putGroupRequest(request, hue.getUser(), hue.getIp());
 		}
 	}
-	
-	/**
-	 * For testing purposes only.
-	 * 
-	 * @param scheduler
-	 * @throws ParseException
-	 */
-	public static void printMessage(TaskScheduler scheduler) throws ParseException {
-		CronTrigger trigger = new CronTrigger(DateUtil.getCronDate("19:20:00"));
-		scheduler.schedule(RunnableUtil.printMessage(LOG), trigger);
+
+	public static void setGoodMorningJob(TaskScheduler scheduler, Hue hue) throws ParseException {
+		if (hue.getScene().getGoodMorning().isEnabled()) {
+			if (DateUtil.isWeekday(DateUtil.getWeekday(new Date()))) {
+				scheduler.schedule(RunnableUtil.setGoodMorning(LOG, hue),
+						new CronTrigger(DateUtil.getCronDate("04:59:00")));
+			}
+		}
 	}
+
 }
