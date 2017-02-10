@@ -4,7 +4,7 @@
 
 == Instructions
 
-Create a config.yml file in the same path as the *.jar* file with the following data
+. Create a config.yml file in the same path as the *.jar* file with the following data
 
 [source,yaml]
 application:
@@ -43,3 +43,8 @@ application:
         time:
         # Group of lamps that will be disabled.
         group:
+
+. Configure the file created above accordingly your own preference.
+. Open a terminal and navigate to the path where the *.jar* and *config.yml* exists and run the command below, swap out
+*file.jar* to what the jar file is named.
+- java -jar -Dspring.config.location=classpath:config.yml file.jar
