@@ -2,10 +2,23 @@
 
 = HueServer
 
+== Prerequisites
+
+. *Git*: How to clone a project.
+. *Maven*: Some knowledge on how to build a Maven project.
+
 == Instructions
 
 * Clone the repository and build it using Maven.
 * Create a config.yml file in the same path as the *.jar* file with the following data
+* If you want to enable the *Twitter scanning* to blink lights when match found, 
+you also need to create a application.yml in *src/main/resources* before building the application 
+(In the future I'm looking for a better way to implement this). In there enter the following information 
+and fill it in with your appId and appSecret from the *Twitter API*.
+** spring.social.twitter.appId: 
+** spring.social.twitter.appSecret: 
+* In this file you can also change the port that the program runs on with the following command:
+** server.port: 
 
 [source,yaml]
 application:
@@ -15,6 +28,17 @@ application:
     # Specify the coordinates for where you want to collect data for such as sun hours.
     latitude:
     longitude:
+  twitter:
+    # Scan twitter and blink lights when message found that matches pattern.
+    enabled: false
+    # List of users to scan for regex pattern in message,
+    # see the example below how to add users. Leave empty to scan your feed.
+    users:
+    # - User1
+    # - User2
+    # Regex pattern to scan (For example: .*Saturday.* to scan for messages that include Saturday)
+    regex:
+    group:
   hue:
     # Your username for your Hue bridge API. See https://developers.meethue.com/documentation/getting-started
     user:

@@ -5,10 +5,11 @@ public class HueSetSceneRequest {
 	private String group;
 	private String scene;
 	private String effect;
-	private boolean on;
-	private int bri;
-	private int hue;
-	private int sat;
+	private String alert;
+	private Boolean on;
+	private Integer bri;
+	private Integer hue;
+	private Integer sat;
 
 	public String getEffect() {
 		return effect;
@@ -18,27 +19,35 @@ public class HueSetSceneRequest {
 		this.effect = effect;
 	}
 
-	public int getBri() {
+	public Integer getBri() {
 		return bri;
 	}
 
-	public void setBri(int bri) {
+	public void setBri(Integer bri) {
 		this.bri = bri;
 	}
 
-	public int getHue() {
+	public Integer getHue() {
 		return hue;
 	}
 
-	public void setHue(int hue) {
+	public String getAlert() {
+		return alert;
+	}
+
+	public void setAlert(String alert) {
+		this.alert = alert;
+	}
+
+	public void setHue(Integer hue) {
 		this.hue = hue;
 	}
 
-	public int getSat() {
+	public Integer getSat() {
 		return sat;
 	}
 
-	public void setSat(int sat) {
+	public void setSat(Integer sat) {
 		this.sat = sat;
 	}
 
@@ -66,11 +75,11 @@ public class HueSetSceneRequest {
 		this.group = group;
 	}
 
-	public boolean isOn() {
+	public Boolean isOn() {
 		return on;
 	}
 
-	public void setOn(boolean on) {
+	public void setOn(Boolean on) {
 		this.on = on;
 	}
 

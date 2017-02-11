@@ -7,13 +7,16 @@ import org.springframework.stereotype.Service;
 
 @RefreshScope
 @Service
-@EnableConfigurationProperties({Hue.class, General.class})
+@EnableConfigurationProperties({ Hue.class, Twitter.class, General.class })
 public class Configuration {
 	@Autowired
 	private Hue hue;
 
 	@Autowired
 	private General general;
+
+	@Autowired
+	private Twitter twitter;
 
 	public void setHue(Hue hue) {
 		this.hue = hue;
@@ -29,6 +32,14 @@ public class Configuration {
 
 	public void setGeneral(General general) {
 		this.general = general;
+	}
+
+	public Twitter getTwitter() {
+		return twitter;
+	}
+
+	public void setTwitter(Twitter twitter) {
+		this.twitter = twitter;
 	}
 
 }

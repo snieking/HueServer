@@ -16,40 +16,43 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
+import com.sonie.web.resources.twitter.TwitterScanRequest;
 import com.sonie.web.util.CronJobUtil;
+import com.sonie.web.util.RequestUtil;
+import com.sonie.web.util.TwitterUtil;
 
 import resources.internal.Configuration;
 import resources.internal.Hue;
 
-@SpringBootApplication(scanBasePackages={"resources.internal","com.sonie.web"})
+@SpringBootApplication(scanBasePackages = { "resources.internal", "com.sonie.web" })
 @EnableScheduling
 public class App {
-	
+
 	@Autowired
 	private Configuration configuration;
-	
+
 	@Bean
-    public TaskScheduler poolScheduler() {
-        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
-        scheduler.setThreadNamePrefix("poolScheduler");
-        scheduler.setPoolSize(10);
-        return scheduler;
-    }
-	
+	public TaskScheduler poolScheduler() {
+		ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+		scheduler.setThreadNamePrefix("poolScheduler");
+		scheduler.setPoolSize(10);
+		return scheduler;
+	}
+
 	@PostConstruct
 	public void dailyAfterStartup() throws ParseException {
 		CronJobUtil.setDailySunJobs(poolScheduler(), configuration);
 		CronJobUtil.setGoodMorningJob(poolScheduler(), getHue());
 		CronJobUtil.setGoodNight(poolScheduler(), configuration.getHue());
 	}
-	
+
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer properties() {
-	  PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
-	  YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
-	  yaml.setResources(new ClassPathResource("config.yml"));
-	  propertySourcesPlaceholderConfigurer.setProperties(yaml.getObject());
-	  return propertySourcesPlaceholderConfigurer;
+		PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
+		YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
+		yaml.setResources(new ClassPathResource("config.yml"));
+		propertySourcesPlaceholderConfigurer.setProperties(yaml.getObject());
+		return propertySourcesPlaceholderConfigurer;
 	}
 
 	@Scheduled(cron = "0 0 1 * * *")
@@ -60,10 +63,18 @@ public class App {
 		CronJobUtil.setEvening(poolScheduler(), getHue());
 	}
 
+	@Scheduled(fixedRate = 60000, initialDelay = 60000)
+	public void scanTwitter() {
+		if (configuration.getTwitter().isEnabled()) {
+			TwitterScanRequest twitterScanRequest = TwitterUtil.createTwitterRequest(configuration);
+			RequestUtil.asyncLocalhostPut("/twitter/tweets", twitterScanRequest);
+		}
+	}
+
 	public static void main(String[] args) throws ParseException {
 		SpringApplication.run(App.class, args);
 	}
-	
+
 	private Hue getHue() {
 		return configuration.getHue();
 	}
