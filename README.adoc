@@ -4,6 +4,7 @@
 
 == Instructions
 
+. Clone the repository and build it using Maven.
 . Create a config.yml file in the same path as the *.jar* file with the following data
 
 [source,yaml]
