@@ -56,7 +56,8 @@ public class App {
 	public void dailyJob() throws ParseException {
 		CronJobUtil.setDailySunJobs(poolScheduler(), configuration);
 		CronJobUtil.setGoodMorningJob(poolScheduler(), getHue());
-		CronJobUtil.setGoodNight(poolScheduler(), configuration.getHue());
+		CronJobUtil.setGoodNight(poolScheduler(), getHue());
+		CronJobUtil.setEvening(poolScheduler(), getHue());
 	}
 
 	public static void main(String[] args) throws ParseException {

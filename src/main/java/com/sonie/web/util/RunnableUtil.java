@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.springframework.web.client.RestTemplate;
 
 import resources.internal.Hue;
+import resources.internal.Hue.Scene.Evening;
 import resources.internal.Hue.Scene.GoodMorning;
 import resources.internal.Hue.Scene.GoodNight;
 import resources.internal.Hue.Scene.Sunstatus;
@@ -86,6 +87,27 @@ public class RunnableUtil {
 				HueSetSceneRequest request = new HueSetSceneRequest();
 				request.setGroup(goodNight.getGroup());
 				request.setOn(false);
+
+				restTemplate.put(hue.getIp() + "/api/" + hue.getUser() + "/groups/" + request.getGroup() + "/action",
+						request);
+			}
+		};
+
+		return runnable;
+	}
+
+	public static Runnable setEvening(final Logger LOG, final Hue hue) {
+		Runnable runnable = new Runnable() {
+			@Override
+			public void run() {
+				Evening evening = hue.getScene().getEvening();
+				LogUtil.logWithTime(LOG, "Good night!");
+
+				RestTemplate restTemplate = new RestTemplate();
+
+				HueSetSceneRequest request = new HueSetSceneRequest();
+				request.setGroup(evening.getGroup());
+				request.setScene(evening.getId());
 
 				restTemplate.put(hue.getIp() + "/api/" + hue.getUser() + "/groups/" + request.getGroup() + "/action",
 						request);

@@ -41,6 +41,7 @@ public class Hue {
 		private Sunstatus sunstatus;
 		private GoodMorning goodMorning;
 		private GoodNight goodNight;
+		private Evening evening;
 
 		public Sunstatus getSunstatus() {
 			return sunstatus;
@@ -64,6 +65,14 @@ public class Hue {
 
 		public void setGoodNight(GoodNight goodNight) {
 			this.goodNight = goodNight;
+		}
+
+		public Evening getEvening() {
+			return evening;
+		}
+
+		public void setEvening(Evening evening) {
+			this.evening = evening;
 		}
 
 		public static class Sunstatus {
@@ -192,6 +201,46 @@ public class Hue {
 			public void setGroup(String group) {
 				this.group = group;
 			}
+		}
+		
+		public static class Evening {
+			private boolean enabled;
+			private String time;
+			private String id;
+			private String group;
+
+			public boolean isEnabled() {
+				return enabled;
+			}
+
+			public void setEnabled(boolean enabled) {
+				this.enabled = enabled;
+			}
+
+			public String getTime() {
+				return time;
+			}
+
+			public void setTime(String time) {
+				this.time = time;
+			}
+
+			public String getId() {
+				return id;
+			}
+
+			public void setId(String id) {
+				this.id = id;
+			}
+
+			public String getGroup() {
+				return group;
+			}
+
+			public void setGroup(String group) {
+				this.group = group;
+			}
+
 		}
 	}
 }

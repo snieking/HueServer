@@ -29,24 +29,29 @@ public class CronJobUtil {
 	public static void setDailySunJobs(TaskScheduler scheduler, Configuration config) throws ParseException {
 		Sunstatus sunstatus = config.getHue().getScene().getSunstatus();
 		General general = config.getGeneral();
-		
+
 		if (sunstatus.isEnabled()) {
 			RestTemplate restTemplate = new RestTemplate();
-			SunStatusResponse response = restTemplate.getForObject(
-					"http://api.sunrise-sunset.org/json?lat=" + general.getLatitude() + "&lng=" + general.getLongitude() + "&date=today",
+			SunStatusResponse response = restTemplate.getForObject("http://api.sunrise-sunset.org/json?lat="
+					+ general.getLatitude() + "&lng=" + general.getLongitude() + "&date=today",
 					SunStatusResponse.class);
-			
-			String set = DateUtil.convert12UTFTo24WithTimeZone(response.getResults().getSunset(), general.getTimeZone());
-			String adjustedSunsetTime = DateUtil.addOrRemoveMinutes(set, config.getHue().getScene().getSunstatus().getSunsetAdjustedMinutes());
-			
-			LOG.info("Sunset scheduled for [{}]", adjustedSunsetTime);
-			scheduler.schedule(RunnableUtil.setSunSet(LOG, config.getHue()), new CronTrigger(DateUtil.getCronDate(adjustedSunsetTime)));
 
-			String rise = DateUtil.convert12UTFTo24WithTimeZone(response.getResults().getSunrise(), general.getTimeZone());
+			String set = DateUtil.convert12UTFTo24WithTimeZone(response.getResults().getSunset(),
+					general.getTimeZone());
+			String adjustedSunsetTime = DateUtil.addOrRemoveMinutes(set,
+					config.getHue().getScene().getSunstatus().getSunsetAdjustedMinutes());
+
+			LOG.info("Sunset scheduled for [{}]", adjustedSunsetTime);
+			scheduler.schedule(RunnableUtil.setSunSet(LOG, config.getHue()),
+					new CronTrigger(DateUtil.getCronDate(adjustedSunsetTime)));
+
+			String rise = DateUtil.convert12UTFTo24WithTimeZone(response.getResults().getSunrise(),
+					general.getTimeZone());
 			String adjustedSunriseTime = DateUtil.addOrRemoveMinutes(rise, sunstatus.getSunriseAdjustedMinutes());
-			
+
 			LOG.info("Sunrise scheduled for [{}]", adjustedSunriseTime);
-			scheduler.schedule(RunnableUtil.setSunRise(LOG, config.getHue()), new CronTrigger(DateUtil.getCronDate(adjustedSunriseTime)));
+			scheduler.schedule(RunnableUtil.setSunRise(LOG, config.getHue()),
+					new CronTrigger(DateUtil.getCronDate(adjustedSunriseTime)));
 		}
 	}
 
@@ -74,6 +79,13 @@ public class CronJobUtil {
 				scheduler.schedule(RunnableUtil.setGoodMorning(LOG, hue),
 						new CronTrigger(DateUtil.getCronDate(hue.getScene().getGoodMorning().getTime())));
 			}
+		}
+	}
+
+	public static void setEvening(TaskScheduler scheduler, Hue hue) {
+		if (hue.getScene().getEvening().isEnabled()) {
+			scheduler.schedule(RunnableUtil.setEvening(LOG, hue),
+					new CronTrigger(DateUtil.getCronDate(hue.getScene().getEvening().getTime())));
 		}
 	}
 

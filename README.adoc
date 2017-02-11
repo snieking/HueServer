@@ -47,6 +47,14 @@ application:
         time:
         # Group of lamps that will be disabled.
         group:
+      evening:
+        enabled: true
+        # Time that lamps will set eveing scene.
+        time: 
+        # Group of lamps that will be set to a scene.
+        group: 
+        # Id of the scene that will be set
+        id: 
 
 . Configure the file created above accordingly your own preference.
 . Open a terminal and navigate to the path where the *.jar* and *config.yml* exists and run the command below, swap out

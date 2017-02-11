@@ -40,7 +40,7 @@ public class DateUtilTest {
 		assertEquals("12:05:02", DateUtil.convert12UTFTo24WithTimeZone("2:05:02 PM", -2));
 		assertEquals("23:05:02", DateUtil.convert12UTFTo24WithTimeZone("1:05:02 AM", -2));
 		assertEquals("01:05:02", DateUtil.convert12UTFTo24WithTimeZone("11:05:02 PM", 2));
-		assertEquals("11:07:02", DateUtil.convert12UTFTo24WithTimeZone("11:07:02 AM", 2));
+		assertEquals("11:07:02", DateUtil.convert12UTFTo24WithTimeZone("13:07:02 AM", -2));
 	}
 	
 	@Test
@@ -48,7 +48,7 @@ public class DateUtilTest {
 		assertEquals("12:00:00", DateUtil.addOrRemoveMinutes("13:00:00", -60));
 		assertEquals("23:59:00", DateUtil.addOrRemoveMinutes("01:00:00", -61));
 		assertEquals("00:10:00", DateUtil.addOrRemoveMinutes("23:50:00", 20));
-		assertEquals("00:10:00", DateUtil.addOrRemoveMinutes("23:50:00", 30));
+		assertEquals("00:10:00", DateUtil.addOrRemoveMinutes("00:20:00", -10));
 	}
 
 	@Test
@@ -56,5 +56,7 @@ public class DateUtilTest {
 		Calendar calendar = Calendar.getInstance();
 		assertEquals("0 14 19 " + calendar.get(Calendar.DAY_OF_MONTH) + " " + (calendar.get(Calendar.MONTH) + 1) + " *",
 				DateUtil.getCronDate("19:14:00"));
+		assertEquals("0 0 0 " + calendar.get(Calendar.DAY_OF_MONTH) + " " + (calendar.get(Calendar.MONTH) + 1) + " *",
+				DateUtil.getCronDate("00:00:00"));
 	}
 }
