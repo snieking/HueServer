@@ -40,6 +40,7 @@ public class DateUtilTest {
 		assertEquals("12:05:02", DateUtil.convert12UTFTo24WithTimeZone("2:05:02 PM", -2));
 		assertEquals("23:05:02", DateUtil.convert12UTFTo24WithTimeZone("1:05:02 AM", -2));
 		assertEquals("01:05:02", DateUtil.convert12UTFTo24WithTimeZone("11:05:02 PM", 2));
+		assertEquals("01:05:02", DateUtil.convert12UTFTo24WithTimeZone("11:05:01 PM", 2));
 	}
 	
 	@Test
