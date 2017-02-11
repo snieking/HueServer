@@ -4,8 +4,8 @@
 
 == Instructions
 
-. Clone the repository and build it using Maven.
-. Create a config.yml file in the same path as the *.jar* file with the following data
+* Clone the repository and build it using Maven.
+* Create a config.yml file in the same path as the *.jar* file with the following data
 
 [source,yaml]
 application:
@@ -57,7 +57,7 @@ application:
         # Id of the scene that will be set
         id: 
 
-. Configure the file created above accordingly your own preference.
-. Open a terminal and navigate to the path where the *.jar* and *config.yml* exists and run the command below, swap out
+* Configure the file created above accordingly your own preference.
+* Open a terminal and navigate to the path where the *.jar* and *config.yml* exists and run the command below, swap out
 *file.jar* to what the jar file is named.
 - java -jar -Dspring.config.location=classpath:config.yml file.jar
