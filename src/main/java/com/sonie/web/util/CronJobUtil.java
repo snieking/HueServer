@@ -55,7 +55,7 @@ public class CronJobUtil {
 	public static void setGoodNight(TaskScheduler scheduler, Hue hue) {
 		if (hue.getScene().getGoodNight().isEnabled()) {
 			scheduler.schedule(RunnableUtil.setGoodNight(LOG, hue),
-					new CronTrigger(DateUtil.getCronDate(hue.getScene().getGoodMorning().getTime())));
+					new CronTrigger(DateUtil.getCronDate(hue.getScene().getGoodNight().getTime())));
 		}
 	}
 

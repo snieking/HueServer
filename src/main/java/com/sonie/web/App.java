@@ -43,7 +43,7 @@ public class App {
 	  return propertySourcesPlaceholderConfigurer;
 	}
 
-	@Scheduled(cron = "0 0 01 * * *")
+	@Scheduled(cron = "0 0 1 * * *")
 	public void dailyJob() throws ParseException {
 		CronJobUtil.setDailySunJobs(poolScheduler(), configuration);
 		CronJobUtil.setGoodMorningJob(poolScheduler(), getHue());
