@@ -70,6 +70,8 @@ public class Hue {
 			private boolean enabled;
 			private String id;
 			private String group;
+			private int sunsetAdjustedMinutes;
+			private int sunriseAdjustedMinutes;
 
 			public boolean isEnabled() {
 				return enabled;
@@ -94,6 +96,23 @@ public class Hue {
 			public void setGroup(String group) {
 				this.group = group;
 			}
+
+			public int getSunsetAdjustedMinutes() {
+				return sunsetAdjustedMinutes;
+			}
+
+			public void setSunsetAdjustedMinutes(int sunsetAdjustedMinutes) {
+				this.sunsetAdjustedMinutes = sunsetAdjustedMinutes;
+			}
+
+			public int getSunriseAdjustedMinutes() {
+				return sunriseAdjustedMinutes;
+			}
+
+			public void setSunriseAdjustedMinutes(int sunriseAdjustedMinutes) {
+				this.sunriseAdjustedMinutes = sunriseAdjustedMinutes;
+			}
+
 		}
 
 		public static class GoodMorning {

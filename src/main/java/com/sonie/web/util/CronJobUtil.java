@@ -13,7 +13,9 @@ import org.springframework.web.client.RestTemplate;
 import com.sonie.web.resources.weather.SunStatusResponse;
 
 import resources.internal.Configuration;
+import resources.internal.General;
 import resources.internal.Hue;
+import resources.internal.Hue.Scene.Sunstatus;
 import resources.internal.HueSetSceneRequest;
 
 @EnableScheduling
@@ -25,19 +27,26 @@ public class CronJobUtil {
 	}
 
 	public static void setDailySunJobs(TaskScheduler scheduler, Configuration config) throws ParseException {
-		if (config.getHue().getScene().getSunstatus().isEnabled()) {
+		Sunstatus sunstatus = config.getHue().getScene().getSunstatus();
+		General general = config.getGeneral();
+		
+		if (sunstatus.isEnabled()) {
 			RestTemplate restTemplate = new RestTemplate();
 			SunStatusResponse response = restTemplate.getForObject(
-					"http://api.sunrise-sunset.org/json?lat=" + config.getGeneral().getLatitude() + "&lng=" + config.getGeneral().getLongitude() + "&date=today",
+					"http://api.sunrise-sunset.org/json?lat=" + general.getLatitude() + "&lng=" + general.getLongitude() + "&date=today",
 					SunStatusResponse.class);
+			
+			String set = DateUtil.convert12UTFTo24WithTimeZone(response.getResults().getSunset(), general.getTimeZone());
+			String adjustedSunsetTime = DateUtil.addOrRemoveMinutes(set, config.getHue().getScene().getSunstatus().getSunsetAdjustedMinutes());
+			
+			LOG.info("Sunset scheduled for [{}]", adjustedSunsetTime);
+			scheduler.schedule(RunnableUtil.setSunSet(LOG, config.getHue()), new CronTrigger(DateUtil.getCronDate(adjustedSunsetTime)));
 
-			String set = DateUtil.convert12To24(response.getResults().getSunset(), config.getGeneral().getTimeZone());
-			LOG.info("Sunset scheduled for [{}]", set);
-			scheduler.schedule(RunnableUtil.setSunSet(LOG, config.getHue()), new CronTrigger(DateUtil.getCronDate(set)));
-
-			String rise = DateUtil.convert12To24(response.getResults().getSunrise(), config.getGeneral().getTimeZone());
-			LOG.info("Sunrise scheduled for [{}]", rise);
-			scheduler.schedule(RunnableUtil.setSunRise(LOG, config.getHue()), new CronTrigger(DateUtil.getCronDate(rise)));
+			String rise = DateUtil.convert12UTFTo24WithTimeZone(response.getResults().getSunrise(), general.getTimeZone());
+			String adjustedSunriseTime = DateUtil.addOrRemoveMinutes(rise, sunstatus.getSunriseAdjustedMinutes());
+			
+			LOG.info("Sunrise scheduled for [{}]", adjustedSunriseTime);
+			scheduler.schedule(RunnableUtil.setSunRise(LOG, config.getHue()), new CronTrigger(DateUtil.getCronDate(adjustedSunriseTime)));
 		}
 	}
 

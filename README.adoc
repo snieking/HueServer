@@ -27,6 +27,10 @@ application:
         id:
         # Group of lamps that will be enabled.
         group:
+        # How many minutes before or after sunset it should enable (Ex: Before -60, After 60)
+        sunsetAdjustedMinutes:
+        # How many minutes before or after sunset it should enable (Ex: Before -60, After 60)
+        sunriseAdjustedMinutes:
       # Enables lights in the morning.
       goodMorning:
         enabled: true

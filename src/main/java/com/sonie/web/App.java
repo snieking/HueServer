@@ -2,6 +2,8 @@ package com.sonie.web;
 
 import java.text.ParseException;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.boot.SpringApplication;
@@ -33,6 +35,13 @@ public class App {
         scheduler.setPoolSize(10);
         return scheduler;
     }
+	
+	@PostConstruct
+	public void dailyAfterStartup() throws ParseException {
+		CronJobUtil.setDailySunJobs(poolScheduler(), configuration);
+		CronJobUtil.setGoodMorningJob(poolScheduler(), getHue());
+		CronJobUtil.setGoodNight(poolScheduler(), configuration.getHue());
+	}
 	
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer properties() {

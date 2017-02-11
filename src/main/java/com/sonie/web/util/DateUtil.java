@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class DateUtil {
 
-	public static String convert12To24(String time, int timeZone) throws ParseException {
+	public static String convert12UTFTo24WithTimeZone(String time, int timeZone) throws ParseException {
 		SimpleDateFormat displayFormat = new SimpleDateFormat("HH:mm:ss");
 		SimpleDateFormat parseFormat = new SimpleDateFormat("hh:mm:ss a");
 
@@ -57,5 +57,16 @@ public class DateUtil {
 				+ Integer.parseInt(strings[0]) + " " + calendar.get(Calendar.DAY_OF_MONTH) + " "
 				+ (calendar.get(Calendar.MONTH) + 1) + " *";
 		return cron;
+	}
+
+	public static String addOrRemoveMinutes(String set, int minutesBeforeSunset) throws ParseException {
+		SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+		Date d = df.parse(set);
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(d);
+		cal.add(Calendar.MINUTE, minutesBeforeSunset);
+		
+		return df.format(cal.getTime());
 	}
 }
