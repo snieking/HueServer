@@ -19,8 +19,8 @@
 
 == Instructions
 
-* Clone the repository and build it using Maven.
-* Create a config.yml file in the same path as the *.jar* file with the following data
+* Create a config.yml file in the same path as the *.jar* file with the data below.
+** One is also included in the .zip file which you can of course just fill in and use.
 * If you want to enable the *Twitter scanning* to blink lights when match found, 
 you need to fill in the spring.social.twitter fields in the config.
 ** spring.social.twitter.appId: 
