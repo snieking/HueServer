@@ -107,7 +107,7 @@ server:
 
 == Contact
 
-You can reach me via link:https://twitter.com/sonietv[*Twitter*] or drop me an email
+You can best reach me via link:https://twitter.com/sonietv[*Twitter*] or drop me an email
 at link:mailto:viktorplane.sonie@gmail.com[*viktorplane.sonie@gmail.com*].
 
 === Requests and report bugs
