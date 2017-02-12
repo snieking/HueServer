@@ -49,6 +49,7 @@ public class App {
 		CronJobUtil.setDailySunJobs(poolScheduler(), configuration);
 		CronJobUtil.setGoodMorningJob(poolScheduler(), getHue());
 		CronJobUtil.setGoodNight(poolScheduler(), configuration.getHue());
+		CronJobUtil.setEvening(poolScheduler(), getHue());
 	}
 
 	@Bean
