@@ -1,10 +1,13 @@
 :numbered:
+:hide-uri-scheme:
 
 = HueServer
 
 == Prerequisites
 
-. General knowledge on how to get API keys from Hue & Twitter.
+. General API knowledge
+.. API keys for [Philips Hue, https://developers.meethue.com] and [Twitter, https://dev.twitter.com]
+.. Get scenes IDs from Philips Hue.
 . A computer/server that is online 24/7. Personally, I use a Raspberry Pi which barely eats any electricity.
 
 == Download
