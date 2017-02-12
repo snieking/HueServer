@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.Twitter;
@@ -23,6 +25,7 @@ import resources.internal.Configuration;
 
 @Service
 public class TwitterUseCase {
+	private static final Logger LOG = LoggerFactory.getLogger(TwitterUseCase.class);
 	private Twitter twitter;
 	private static HashSet<String> messages = new HashSet<>();
 
@@ -47,24 +50,13 @@ public class TwitterUseCase {
 		if (users != null && !users.isEmpty()) {
 			scanUsersForMessage(users, regex);
 		} else {
-			scanMyWall(regex);
+			LOG.warn("Twitter enabled but no user to search for, check your configuration.");
 		}
 
 		if (messages.size() > size) {
+			LOG.info("Found a new twitter match, blinking lights.");
 			HueUtil.blinkLights(config.getHue().getIp(), config.getHue().getUser(), config.getTwitter().getGroup());
 		}
-	}
-
-	/**
-	 * Scans the twitter call of the main user and uses
-	 * {@link #checkTweets(List, String)} to check if any tweets matches the
-	 * regex.
-	 * 
-	 * @param regex
-	 */
-	private void scanMyWall(String regex) {
-		List<Tweet> tweets = twitter.timelineOperations().getHomeTimeline(20);
-		checkTweets(tweets, regex);
 	}
 
 	/**

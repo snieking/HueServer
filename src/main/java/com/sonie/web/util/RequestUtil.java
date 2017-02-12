@@ -18,6 +18,6 @@ public class RequestUtil {
 	public static <T> void localhostPut(String url, T request) {
 		RestTemplate restTemplate = new RestTemplate();
 		
-		restTemplate.put("http://localhost:9000" + url, request);
+		restTemplate.put("http://localhost:9080" + url, request);
 	}
 }

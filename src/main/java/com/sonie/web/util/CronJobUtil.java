@@ -89,6 +89,7 @@ public class CronJobUtil {
 	public static void setGoodMorningJob(TaskScheduler scheduler, Hue hue) throws ParseException {
 		if (hue.getScene().getGoodMorning().isEnabled()) {
 			if (DateUtil.isWeekday(DateUtil.getWeekday(new Date()))) {
+				LOG.info("Good night time is set for: [{}]", hue.getScene().getGoodNight().getTime());
 				scheduler.schedule(RunnableUtil.setGoodMorning(LOG, hue),
 						new CronTrigger(DateUtil.getCronDate(hue.getScene().getGoodMorning().getTime())));
 			}
@@ -103,6 +104,7 @@ public class CronJobUtil {
 	 */
 	public static void setEveningJob(TaskScheduler scheduler, Hue hue) {
 		if (hue.getScene().getEvening().isEnabled()) {
+			LOG.info("Evening time is set for: [{}]", hue.getScene().getEvening().getTime());
 			scheduler.schedule(RunnableUtil.setEvening(LOG, hue),
 					new CronTrigger(DateUtil.getCronDate(hue.getScene().getEvening().getTime())));
 		}
