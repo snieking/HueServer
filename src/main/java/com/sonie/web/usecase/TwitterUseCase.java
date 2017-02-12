@@ -1,3 +1,8 @@
+/*
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
+
 package com.sonie.web.usecase;
 
 import java.util.HashSet;
@@ -20,47 +25,72 @@ import resources.internal.Configuration;
 public class TwitterUseCase {
 	private Twitter twitter;
 	private static HashSet<String> messages = new HashSet<>();
-	
+
 	@Autowired
 	private Configuration config;
-	
+
 	@Inject
 	public TwitterUseCase(Twitter twitter) {
 		this.twitter = twitter;
 	}
-	
+
+	/**
+	 * Scans the tweets based on data in provided {@link TwitterUseCase}.
+	 * 
+	 * @param request
+	 */
 	public void scanTweets(TwitterScanRequest request) {
 		List<String> users = request.getUsers();
 		String regex = request.getRegex();
 		int size = messages.size();
-		
+
 		if (users != null && !users.isEmpty()) {
 			scanUsersForMessage(users, regex);
 		} else {
 			scanMyWall(regex);
 		}
-		
+
 		if (messages.size() > size) {
 			HueUtil.blinkLights(config.getHue().getIp(), config.getHue().getUser(), config.getTwitter().getGroup());
 		}
 	}
 
+	/**
+	 * Scans the twitter call of the main user and uses
+	 * {@link #checkTweets(List, String)} to check if any tweets matches the
+	 * regex.
+	 * 
+	 * @param regex
+	 */
 	private void scanMyWall(String regex) {
 		List<Tweet> tweets = twitter.timelineOperations().getHomeTimeline(20);
 		checkTweets(tweets, regex);
 	}
 
+	/**
+	 * Scans messages for users and uses {@link #checkTweets(List, String)} to
+	 * check if the regex matches it.
+	 * 
+	 * @param users
+	 * @param regex
+	 */
 	private void scanUsersForMessage(List<String> users, String regex) {
 		for (String user : users) {
 			List<Tweet> tweets = twitter.timelineOperations().getUserTimeline(user);
 			checkTweets(tweets, regex);
 		}
 	}
-	
+
+	/**
+	 * Checks the tweets to see if they match the provided regex.
+	 * 
+	 * @param tweets
+	 * @param regex
+	 */
 	private void checkTweets(List<Tweet> tweets, String regex) {
 		for (Tweet tweet : tweets) {
 			String msg = tweet.getText();
-			
+
 			if (Pattern.matches(regex, msg)) {
 				messages.add(msg);
 			}

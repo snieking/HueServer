@@ -1,3 +1,8 @@
+/*
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
+
 package com.sonie.web.util;
 
 import org.slf4j.Logger;
@@ -25,7 +30,7 @@ public class RunnableUtil {
 				request.setGroup(sunstatus.getGroup());
 				request.setScene(sunstatus.getId());
 
-				restTemplate.put(hue.getIp() + "/api/" + hue.getUser() + "/groups/" + request.getGroup() + "/action",
+				restTemplate.put("http://" + hue.getIp() + "/api/" + hue.getUser() + "/groups/" + request.getGroup() + "/action",
 						request);
 			}
 		};
@@ -46,7 +51,7 @@ public class RunnableUtil {
 				request.setGroup(sunstatus.getGroup());
 				request.setOn(false);
 
-				restTemplate.put(hue.getIp() + "/api/" + hue.getUser() + "/groups/" + request.getGroup() + "/action",
+				restTemplate.put("http://" + hue.getIp() + "/api/" + hue.getUser() + "/groups/" + request.getGroup() + "/action",
 						request);
 			}
 		};
@@ -67,7 +72,7 @@ public class RunnableUtil {
 				request.setGroup(goodMorning.getGroup());
 				request.setScene(goodMorning.getId());
 
-				restTemplate.put(hue.getIp() + "/api/" + hue.getUser() + "/groups/" + request.getGroup() + "/action",
+				restTemplate.put("http://" + hue.getIp() + "/api/" + hue.getUser() + "/groups/" + request.getGroup() + "/action",
 						request);
 			}
 		};
@@ -88,7 +93,7 @@ public class RunnableUtil {
 				request.setGroup(goodNight.getGroup());
 				request.setOn(false);
 
-				restTemplate.put(hue.getIp() + "/api/" + hue.getUser() + "/groups/" + request.getGroup() + "/action",
+				restTemplate.put("http://" + hue.getIp() + "/api/" + hue.getUser() + "/groups/" + request.getGroup() + "/action",
 						request);
 			}
 		};
@@ -109,7 +114,7 @@ public class RunnableUtil {
 				request.setGroup(evening.getGroup());
 				request.setScene(evening.getId());
 
-				restTemplate.put(hue.getIp() + "/api/" + hue.getUser() + "/groups/" + request.getGroup() + "/action",
+				restTemplate.put("http://" + hue.getIp() + "/api/" + hue.getUser() + "/groups/" + request.getGroup() + "/action",
 						request);
 			}
 		};

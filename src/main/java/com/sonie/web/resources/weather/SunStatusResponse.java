@@ -1,5 +1,9 @@
-package com.sonie.web.resources.weather;
+/*
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
 
+package com.sonie.web.resources.weather;
 
 public class SunStatusResponse {
 	private String status;

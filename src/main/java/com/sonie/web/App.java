@@ -1,3 +1,8 @@
+/*
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
+
 package com.sonie.web;
 
 import java.text.ParseException;
@@ -55,7 +60,7 @@ public class App {
 		return propertySourcesPlaceholderConfigurer;
 	}
 
-	@Scheduled(cron = "0 0 1 * * *")
+	@Scheduled(cron = "1 0 0 * * *")
 	public void dailyJob() throws ParseException {
 		CronJobUtil.setDailySunJobs(poolScheduler(), configuration);
 		CronJobUtil.setGoodMorningJob(poolScheduler(), getHue());
@@ -67,7 +72,7 @@ public class App {
 	public void scanTwitter() {
 		if (configuration.getTwitter().isEnabled()) {
 			TwitterScanRequest twitterScanRequest = TwitterUtil.createTwitterRequest(configuration);
-			RequestUtil.asyncLocalhostPut("/twitter/tweets", twitterScanRequest);
+			RequestUtil.localhostPut("/twitter/tweets", twitterScanRequest);
 		}
 	}
 

@@ -1,7 +1,10 @@
+/*
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
+
 package com.sonie.web.usecase;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -15,10 +18,13 @@ import resources.internal.HueSetSceneResponse;
 
 @Service
 public class HueUseCase {
-	private static final Logger LOG = LoggerFactory.getLogger(HueUseCase.class);
+	
+	private Configuration configuration;
 	
 	@Autowired
-	private Configuration configuration;
+	public HueUseCase(Configuration configuration) {
+		this.configuration = configuration;
+	}
 	
 	public DeferredResult<HueSetSceneResponse> setSceneUseCase(HueSetSceneRequest request) {
 		DeferredResult<HueSetSceneResponse> result = new DeferredResult<>();

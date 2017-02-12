@@ -4,17 +4,14 @@
 
 == Prerequisites
 
-. *Git*: How to clone a project.
-. *Maven*: Some knowledge on how to build a Maven project.
+. General knowledge on how to get API keys from Hue & Twitter.
 
 == Instructions
 
 * Clone the repository and build it using Maven.
 * Create a config.yml file in the same path as the *.jar* file with the following data
 * If you want to enable the *Twitter scanning* to blink lights when match found, 
-you also need to create a application.yml in *src/main/resources* before building the application 
-(In the future I'm looking for a better way to implement this). In there enter the following information 
-and fill it in with your appId and appSecret from the *Twitter API*.
+you need to fill in the spring.social.twitter fields in the config.
 ** spring.social.twitter.appId: 
 ** spring.social.twitter.appSecret: 
 * In this file you can also change the port that the program runs on with the following command:
@@ -25,14 +22,14 @@ application:
   general:
     # Specify how many hours before or after UTC you are. (For example: 1 or -5)
     timeZone:
-    # Specify the coordinates for where you want to collect data for such as sun hours.
+    # Specify the location that HueServer uses for getting sun hours. (For example: 59.200197)
     latitude:
     longitude:
   twitter:
     # Scan twitter and blink lights when message found that matches pattern.
     enabled: false
     # List of users to scan for regex pattern in message,
-    # see the example below how to add users. Leave empty to scan your feed.
+    # see the example below how to add users.
     users:
     # - User1
     # - User2
@@ -42,15 +39,14 @@ application:
   hue:
     # Your username for your Hue bridge API. See https://developers.meethue.com/documentation/getting-started
     user:
-    # IP to your Hue bridge, check your router.
+    # IP to your Hue bridge, check your router (For example: 192.168.1.85)
     ip:
     scene:
       # Runs everyday at sunrise and sunset.
       sunstatus:
-        enabled: true
+        enabled:
         # Scene that will be set on sunset.
         id:
-        # Group of lamps that will be enabled.
         group:
         # How many minutes before or after sunset it should enable (Ex: Before -60, After 60)
         sunsetAdjustedMinutes:
@@ -58,8 +54,8 @@ application:
         sunriseAdjustedMinutes:
       # Enables lights in the morning.
       goodMorning:
-        enabled: true
-        # Time that lights will turn on in the morning (Ex: 05:00:00).
+        enabled:
+        # Time that lights will turn on in the morning.
         time:
         # Id of the scene that will be set.
         id:
@@ -67,19 +63,26 @@ application:
         group:
       # Disables lights in the night.
       goodNight:
-        enabled: true
-        # Time that lamps will be disabled (Ex: 02:00:00).
+        enabled:
+        # Time that lamps will be disabled.
         time:
         # Group of lamps that will be disabled.
         group:
       evening:
         enabled: true
         # Time that lamps will set eveing scene.
-        time: 
+        time:
         # Group of lamps that will be set to a scene.
-        group: 
+        group:
         # Id of the scene that will be set
-        id: 
+        id:
+# This needs to be specified in order to use the twitter scan.
+# See dev.twitter.com to create an App to receie appId & appSecret.
+spring:
+  social:
+    twitter:
+      appId:
+      appSecret:
 
 * Configure the file created above accordingly your own preference.
 * Open a terminal and navigate to the path where the *.jar* and *config.yml* exists and run the command below, swap out

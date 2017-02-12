@@ -1,3 +1,8 @@
+/*
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
+
 package com.sonie.web.util;
 
 import java.text.ParseException;
@@ -25,6 +30,13 @@ public class CronJobUtil {
 
 	}
 
+	/**
+	 * Sets the daily job for the sunset and sunrise.
+	 * 
+	 * @param scheduler
+	 * @param config
+	 * @throws ParseException
+	 */
 	public static void setDailySunJobs(TaskScheduler scheduler, Configuration config) throws ParseException {
 		Sunstatus sunstatus = config.getHue().getScene().getSunstatus();
 		General general = config.getGeneral();
@@ -54,6 +66,12 @@ public class CronJobUtil {
 		}
 	}
 
+	/**
+	 * Sets the daily job for the night.
+	 * 
+	 * @param scheduler
+	 * @param hue
+	 */
 	public static void setGoodNight(TaskScheduler scheduler, Hue hue) {
 		if (hue.getScene().getGoodNight().isEnabled()) {
 			scheduler.schedule(RunnableUtil.setGoodNight(LOG, hue),
@@ -61,6 +79,13 @@ public class CronJobUtil {
 		}
 	}
 
+	/**
+	 * Sets the daily job for the morning.
+	 * 
+	 * @param scheduler
+	 * @param hue
+	 * @throws ParseException
+	 */
 	public static void setGoodMorningJob(TaskScheduler scheduler, Hue hue) throws ParseException {
 		if (hue.getScene().getGoodMorning().isEnabled()) {
 			if (DateUtil.isWeekday(DateUtil.getWeekday(new Date()))) {
@@ -70,6 +95,12 @@ public class CronJobUtil {
 		}
 	}
 
+	/**
+	 * Sets the daily job for the evening.
+	 * 
+	 * @param scheduler
+	 * @param hue
+	 */
 	public static void setEvening(TaskScheduler scheduler, Hue hue) {
 		if (hue.getScene().getEvening().isEnabled()) {
 			scheduler.schedule(RunnableUtil.setEvening(LOG, hue),
