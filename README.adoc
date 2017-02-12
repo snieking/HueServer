@@ -15,7 +15,7 @@
 [width="100%",cols="20%, 30%, 50%"]
 |=============================
 |*Version* |*Link* |*Notes*
-|1.0.0 |http://bit.ly/2lE8fle |First release
+|1.0.0 |http://bit.ly/2lF8Pzr |First release
 |=============================
 
 == Instructions
