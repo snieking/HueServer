@@ -72,7 +72,7 @@ public class CronJobUtil {
 	 * @param scheduler
 	 * @param hue
 	 */
-	public static void setGoodNight(TaskScheduler scheduler, Hue hue) {
+	public static void setGoodNightJob(TaskScheduler scheduler, Hue hue) {
 		if (hue.getScene().getGoodNight().isEnabled()) {
 			scheduler.schedule(RunnableUtil.setGoodNight(LOG, hue),
 					new CronTrigger(DateUtil.getCronDate(hue.getScene().getGoodNight().getTime())));
@@ -101,10 +101,28 @@ public class CronJobUtil {
 	 * @param scheduler
 	 * @param hue
 	 */
-	public static void setEvening(TaskScheduler scheduler, Hue hue) {
+	public static void setEveningJob(TaskScheduler scheduler, Hue hue) {
 		if (hue.getScene().getEvening().isEnabled()) {
 			scheduler.schedule(RunnableUtil.setEvening(LOG, hue),
 					new CronTrigger(DateUtil.getCronDate(hue.getScene().getEvening().getTime())));
+		}
+	}
+	
+	/**
+	 * Used to schedule all the daily jobs.
+	 * 
+	 * @param scheduler
+	 * @param config
+	 */
+	public static void setDailyJobs(TaskScheduler scheduler, Configuration config) {
+		try {
+			setEveningJob(scheduler, config.getHue());
+			setGoodMorningJob(scheduler, config.getHue());
+			setGoodNightJob(scheduler, config.getHue());
+			setDailySunJobs(scheduler, config);
+		} catch (ParseException e) {
+			SonarUtil.swallowException(e);
+			LOG.warn("Could not parse a time which means that the daily jobs could not get scheduled. Check your config file that the times are in the right format.");
 		}
 	}
 

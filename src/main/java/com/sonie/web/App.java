@@ -27,7 +27,6 @@ import com.sonie.web.util.RequestUtil;
 import com.sonie.web.util.TwitterUtil;
 
 import resources.internal.Configuration;
-import resources.internal.Hue;
 
 @SpringBootApplication(scanBasePackages = { "resources.internal", "com.sonie.web" })
 @EnableScheduling
@@ -46,10 +45,7 @@ public class App {
 
 	@PostConstruct
 	public void dailyAfterStartup() throws ParseException {
-		CronJobUtil.setDailySunJobs(poolScheduler(), configuration);
-		CronJobUtil.setGoodMorningJob(poolScheduler(), getHue());
-		CronJobUtil.setGoodNight(poolScheduler(), configuration.getHue());
-		CronJobUtil.setEvening(poolScheduler(), getHue());
+		CronJobUtil.setDailyJobs(poolScheduler(), configuration);
 	}
 
 	@Bean
@@ -63,10 +59,7 @@ public class App {
 
 	@Scheduled(cron = "1 0 0 * * *")
 	public void dailyJob() throws ParseException {
-		CronJobUtil.setDailySunJobs(poolScheduler(), configuration);
-		CronJobUtil.setGoodMorningJob(poolScheduler(), getHue());
-		CronJobUtil.setGoodNight(poolScheduler(), getHue());
-		CronJobUtil.setEvening(poolScheduler(), getHue());
+		CronJobUtil.setDailyJobs(poolScheduler(), configuration);
 	}
 
 	@Scheduled(fixedRate = 60000, initialDelay = 60000)
@@ -80,9 +73,4 @@ public class App {
 	public static void main(String[] args) throws ParseException {
 		SpringApplication.run(App.class, args);
 	}
-
-	private Hue getHue() {
-		return configuration.getHue();
-	}
-
 }
