@@ -5,14 +5,12 @@ import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.web.client.RestTemplate;
 
 import com.sonie.web.resources.weather.SunStatusResponse;
-import com.sonie.web.usecase.TwitterUseCase;
 
 import resources.internal.Configuration;
 import resources.internal.General;
@@ -23,9 +21,6 @@ import resources.internal.HueSetSceneRequest;
 @EnableScheduling
 public class CronJobUtil {
 	private static final Logger LOG = LoggerFactory.getLogger(CronJobUtil.class);
-
-	@Autowired
-	private static TwitterUseCase twitterUseCase;
 
 	private CronJobUtil() {
 
