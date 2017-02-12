@@ -24,10 +24,10 @@
 ** One is also included in the .zip file which you can of course just fill in and use.
 * If you want to enable the *Twitter scanning* to blink lights when match found, 
 you need to fill in the spring.social.twitter fields in the config.
-** spring.social.twitter.appId: 
-** spring.social.twitter.appSecret: 
+** *spring.social.twitter.appId:* 
+** *spring.social.twitter.appSecret:* 
 * In this file you can also change the port that the program runs on with the following command:
-** server.port: 
+** *server.port:* 
 
 [source,yaml]
 application:
@@ -95,8 +95,25 @@ spring:
     twitter:
       appId:
       appSecret:
+# Default port is configured to 9080, you can switch this if you
+# have some other service already running on that port.      
+server:
+  port: 9080
 
 * Configure the file created above accordingly your own preference.
 * Open a terminal and navigate to the path where the *.jar* and *config.yml* exists and run the command below, swap out
 *file.jar* to what the jar file is named.
 - *java -jar -Dspring.config.location=classpath:config.yml file.jar*
+
+== Contact
+
+You can reach me via link:https://twitter.com/sonietv[*Twitter*] or drop me an email
+at link:mailto:viktorplane.sonie@gmail.com[*viktorplane.sonie@gmail.com*].
+
+=== Requests and report bugs
+
+To ask for requests or report bugs and issues, please 
+use the link:https://github.com/snieking/HueServer/issues[*Issues*] 
+page here on GitHub.
+
+
