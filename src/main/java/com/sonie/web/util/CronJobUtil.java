@@ -16,7 +16,6 @@ import resources.internal.Configuration;
 import resources.internal.General;
 import resources.internal.Hue;
 import resources.internal.Hue.Scene.Sunstatus;
-import resources.internal.HueSetSceneRequest;
 
 @EnableScheduling
 public class CronJobUtil {
@@ -53,17 +52,6 @@ public class CronJobUtil {
 			scheduler.schedule(RunnableUtil.setSunRise(LOG, config.getHue()),
 					new CronTrigger(DateUtil.getCronDate(adjustedSunriseTime)));
 		}
-	}
-
-	public static void setSnow(Hue hue) {
-		LogUtil.logWithTime(LOG, "Set snow");
-
-		HueSetSceneRequest request = new HueSetSceneRequest();
-		request.setGroup("1");
-		request.setOn(true);
-		request.setScene("93yv8JekmAneCU9");
-
-		HueUtil.putGroupRequest(request, hue.getUser(), hue.getIp());
 	}
 
 	public static void setGoodNight(TaskScheduler scheduler, Hue hue) {
