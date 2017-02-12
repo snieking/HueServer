@@ -6,7 +6,7 @@
 == Prerequisites
 
 . General API knowledge
-.. API keys for [Philips Hue, https://developers.meethue.com] and [Twitter, https://dev.twitter.com]
+.. API keys for xref:https://developers.meethue.com[Philips Hue], and xref:https://dev.twitter.com[Twitter]
 .. Get scenes IDs from Philips Hue.
 . A computer/server that is online 24/7. Personally, I use a Raspberry Pi which barely eats any electricity.
 
