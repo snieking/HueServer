@@ -12,7 +12,7 @@
 
 == Download
 
-[width="100%",cols="20%, 80%"]
+[width="100%",cols="20%, 30%, 50%"]
 |=============================
 |*Version* |*Link* |*Notes*
 |1.0.0 |http://bit.ly/2lE8fle |First release
