@@ -18,5 +18,6 @@ public class TwitterUtilTest {
 		assertTrue(Pattern.matches(LIRIK_LIVE, "L I V E"));
 		assertTrue(Pattern.matches(LIRIK_LIVE, "LIVE"));
 		assertTrue(Pattern.matches(LIRIK_LIVE, "WE ARE LIVE!"));
+		assertFalse(Pattern.matches(LIRIK_LIVE, "Live in an hour"));
 	}
 }

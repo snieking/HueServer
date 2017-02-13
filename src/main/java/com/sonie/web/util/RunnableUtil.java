@@ -106,7 +106,7 @@ public class RunnableUtil {
 			@Override
 			public void run() {
 				Evening evening = hue.getScene().getEvening();
-				LogUtil.logWithTime(LOG, "Good night!");
+				LogUtil.logWithTime(LOG, "Good evening!");
 
 				RestTemplate restTemplate = new RestTemplate();
 

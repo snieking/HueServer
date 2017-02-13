@@ -54,7 +54,6 @@ public class TwitterUseCase {
 		}
 
 		if (messages.size() > size) {
-			LOG.info("Found a new twitter match, blinking lights.");
 			HueUtil.blinkLights(config.getHue().getIp(), config.getHue().getUser(), config.getTwitter().getGroup());
 		}
 	}
@@ -81,10 +80,12 @@ public class TwitterUseCase {
 	 */
 	private void checkTweets(List<Tweet> tweets, String regex) {
 		for (Tweet tweet : tweets) {
-			String msg = tweet.getText();
+			// Creates a unique msg for each new tweet.
+			String msg = tweet.getCreatedAt() + ": " +  tweet.getCreatedAt();
 
-			if (Pattern.matches(regex, msg)) {
+			if (Pattern.matches(regex, msg) && !messages.contains(msg)) {
 				messages.add(msg);
+				LOG.info("Found a match: [{}], blinking lights!", msg);
 			}
 		}
 	}

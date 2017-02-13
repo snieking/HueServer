@@ -62,7 +62,7 @@ public class App {
 		CronJobUtil.setDailyJobs(poolScheduler(), configuration);
 	}
 
-	@Scheduled(fixedRate = 60000, initialDelay = 60000)
+	@Scheduled(fixedRate = 90000, initialDelay = 60000)
 	public void scanTwitter() {
 		if (configuration.getTwitter().isEnabled()) {
 			TwitterScanRequest twitterScanRequest = TwitterUtil.createTwitterRequest(configuration);
