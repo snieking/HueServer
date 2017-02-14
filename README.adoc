@@ -15,6 +15,7 @@
 [width="100%",cols="20%, 30%, 50%"]
 |=============================
 |*Version* |*Link* |*Notes*
+|1.0.2 |http://bit.ly/2ldRr7g |Improvements for the configuration
 |1.0.1 |http://bit.ly/2l0P59i |Better at dealing with Twitter duplicate tweets
 |1.0.0 |http://bit.ly/2lF8Pzr |First release
 |=============================

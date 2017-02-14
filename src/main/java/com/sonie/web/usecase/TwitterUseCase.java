@@ -7,6 +7,7 @@ package com.sonie.web.usecase;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
@@ -81,11 +82,15 @@ public class TwitterUseCase {
 	private void checkTweets(List<Tweet> tweets, String regex) {
 		for (Tweet tweet : tweets) {
 			// Creates a unique msg for each new tweet.
-			String msg = tweet.getCreatedAt() + ": " +  tweet.getCreatedAt();
+			String msg = tweet.getCreatedAt() + ": " + tweet.getText();
 
-			if (Pattern.matches(regex, msg) && !messages.contains(msg)) {
-				messages.add(msg);
-				LOG.info("Found a match: [{}], blinking lights!", msg);
+			if (!tweet.isRetweet()) {
+				Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+				Matcher matcher = pattern.matcher(tweet.getText());
+				if (matcher.matches() && !messages.contains(msg)) {
+					messages.add(msg);
+					LOG.info("Found a match: [{}] with pattern [{}], blinking lights!", msg, regex);
+				}
 			}
 		}
 	}
