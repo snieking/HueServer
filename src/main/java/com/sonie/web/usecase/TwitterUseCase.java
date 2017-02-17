@@ -86,10 +86,10 @@ public class TwitterUseCase {
 
 			if (!tweet.isRetweet()) {
 				Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-				Matcher matcher = pattern.matcher(tweet.getText());
+				Matcher matcher = pattern.matcher(tweet.getText().replaceAll("\n", " "));
 				if (matcher.matches() && !messages.contains(msg)) {
 					messages.add(msg);
-					LOG.info("Found a match: [{}] with pattern [{}], blinking lights!", msg, regex);
+					LOG.info("Found a match: [{}], blinking lights!", msg);
 				}
 			}
 		}

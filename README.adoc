@@ -22,8 +22,8 @@
 
 == Instructions
 
-* Create a config.yml file in the same path as the *.jar* file with the data below.
-** One is also included in the .zip file which you can of course just fill in and use.
+* Open up config/application.yml and configure your system. 
+** The comments in the file describes how you should configure.
 * If you want to enable the *Twitter scanning* to blink lights when match found, 
 you need to fill in the spring.social.twitter fields in the config.
 ** *spring.social.twitter.appId:* 
