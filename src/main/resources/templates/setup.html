@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<title>HueServer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<div th:include="navbar">...</div>
+
+	<div class="bodyWrapper">
+		<h1>Press on the big Hue Bridge button</h1>
+
+		<form class="form-horizontal" method="get" action="/link">
+			<div class="form-group">
+				<button type="submit" class="btn btn-success btn-lg">Done</button>
+			</div>
+		</form>
+
+	</div>
+
+</body>
+</html>

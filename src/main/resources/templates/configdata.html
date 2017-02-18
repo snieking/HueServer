@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<title>HueServer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<div th:include="navbar">...</div>
+
+	<div class="bodyWrapper">
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">Information to put in
+					config/application.yml</h3>
+			</div>
+
+			<!-- Table -->
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Key</th>
+						<th>Value</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>application.hue.user</td>
+						<td th:text="${user}"></td>
+					</tr>
+					<tr>
+						<td>application.hue.ip</td>
+						<td th:text="${ip}"></td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+</body>
+</html>

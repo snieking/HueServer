@@ -40,4 +40,13 @@ public class HueUseCase {
 		
 		return result;
 	}
+
+	public void addIp() {
+		configuration.getHue().setIp(HueUtil.getIpRequest());
+	}
+
+	public void linkBridgeWithNewUser() throws NullPointerException {
+		String user = HueUtil.getNewUser(configuration.getHue().getIp());
+		configuration.getHue().setUser(user);
+	}
 }

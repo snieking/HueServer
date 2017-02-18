@@ -1,0 +1,28 @@
+input[type=text] {
+
+}
+
+body {
+	padding: 50px;
+}
+
+.bodyWrapper {
+	width: 600px;
+	margin: 0 auto;
+}
+
+.bodyWrapper #first {
+	padding-top: 10px;
+}
+
+.bodyWrapper form {
+	padding-left: 15px;
+}
+
+.bodyWrapper label {
+	padding-left: 15px;
+}
+
+.bodyWrapper button {
+	width: 100px;
+}

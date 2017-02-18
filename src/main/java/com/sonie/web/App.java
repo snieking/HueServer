@@ -24,6 +24,7 @@ import com.sonie.web.util.RequestUtil;
 import com.sonie.web.util.TwitterUtil;
 
 import resources.internal.Configuration;
+import resources.internal.StringUtil;
 
 @SpringBootApplication(scanBasePackages = { "resources.internal", "com.sonie.web" })
 @EnableScheduling
@@ -42,12 +43,16 @@ public class App {
 
 	@PostConstruct
 	public void dailyAfterStartup() throws ParseException {
-		CronJobUtil.setDailyJobs(poolScheduler(), configuration);
+		if (StringUtil.isNotNullOrEmpty(configuration.getHue().getIp())) {
+			CronJobUtil.setDailyJobs(poolScheduler(), configuration);
+		}
 	}
 
 	@Scheduled(cron = "1 0 0 * * *")
 	public void dailyJob() throws ParseException {
-		CronJobUtil.setDailyJobs(poolScheduler(), configuration);
+		if (StringUtil.isNotNullOrEmpty(configuration.getHue().getIp())) {
+			CronJobUtil.setDailyJobs(poolScheduler(), configuration);
+		}
 	}
 
 	@Scheduled(fixedRate = 90000, initialDelay = 60000)
