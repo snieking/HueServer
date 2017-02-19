@@ -3,29 +3,23 @@
 <head lang="en">
 <title>HueServer</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-<link
-	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
-	th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
-	rel="stylesheet" media="screen" />
-
-<script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
-	th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
-
-<link href="../static/css/huesrv.css" th:href="@{css/huesrv.css}"
-	rel="stylesheet" media="screen" />
 </head>
 
 <body>
 	<div th:include="navbar">...</div>
 
 	<div class="bodyWrapper">
+		<div class="alert alert-info" role="alert">Values will be
+			changed for the next day.</div>
+
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Configure Daily Hue Schedules</h3>
 			</div>
-			<form action="#" class="form-horizontal" th:action="@{/dailySchedules}" th:object="${dailySchedule}" method="post">
-			
+			<form action="#" class="form-horizontal"
+				th:action="@{/dailySchedules}" th:object="${dailySchedule}"
+				method="post">
+
 				<div class="form-group" id="first">
 					<label for="morning">When do you wake up (weekdays)?</label> <br />
 					<div class="col-md-6">
@@ -35,8 +29,24 @@
 					<div class="col-md-4">
 						<div class="checkbox">
 							<label><input type="checkbox" name="morningIsEnabled"
-								 th:field="*{morningEnabled}" />"Good Morning" enabled</label>
+								th:field="*{morningEnabled}" />"Good Morning" enabled</label>
 						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="morningScene">Which scene should be set (id)?</label> <br />
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="morningScene"
+							placeholder="Ex: 5ZOy2TxzisKhhnE" th:field="*{morningScene}"></input>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="morningGroup">Which group should be set?</label> <br />
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="morningGroup"
+							placeholder="Ex: 1" th:field="*{morningGroup}"></input>
 					</div>
 				</div>
 
@@ -51,8 +61,16 @@
 					<div class="col-md-4">
 						<div class="checkbox">
 							<label><input type="checkbox" name="nightIsEnabled"
-								 th:field="*{nightEnabled}"/>"Good Night" enabled</label>
+								th:field="*{nightEnabled}" />"Good Night" enabled</label>
 						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="nightGroup">Which group should be set?</label> <br />
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="nightGroup"
+							placeholder="Ex: 1" th:field="*{nightGroup}"></input>
 					</div>
 				</div>
 
@@ -68,8 +86,25 @@
 					<div class="col-md-4">
 						<div class="checkbox">
 							<label><input type="checkbox" name="sunsetIsEnabled"
-								 th:field="*{sunstatusEnabled}"/>"Sunstatus" enabled</label>
+								th:field="*{sunstatusEnabled}" />"Sunstatus" enabled</label>
 						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="sunsetScene">Which scene should be set (id)?</label> <br />
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="sunsetScene"
+							placeholder="Ex: 5ZOy2TxzisKhhnE" th:field="*{sunsetScene}"></input>
+					</div>
+
+				</div>
+
+				<div class="form-group">
+					<label for="sunstatusGroup">Which group should be set?</label> <br />
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="sunstatusGroup"
+							placeholder="Ex: 1" th:field="*{sunstatusGroup}"></input>
 					</div>
 				</div>
 
@@ -82,6 +117,38 @@
 					</div>
 				</div>
 
+				<hr />
+				
+				<div class="form-group">
+					<label for="morning">What time for a dedicated evening scene?</label> <br />
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="evening"
+							placeholder="Ex: 19:00:00" th:field="*{eveningTime}"></input>
+					</div>
+					<div class="col-md-4">
+						<div class="checkbox">
+							<label><input type="checkbox" name="eveningIsEnabled"
+								th:field="*{eveningEnabled}" />"Good Evening" enabled</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="eveningScene">Which scene should be set (id)?</label> <br />
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="eveningScene"
+							placeholder="Ex: 5ZOy2TxzisKhhnE" th:field="*{eveningScene}"></input>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="eveningGroup">Which group should be set?</label> <br />
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="eveningGroup"
+							placeholder="Ex: 1" th:field="*{eveningGroup}"></input>
+					</div>
+				</div>
+				
 				<hr />
 
 				<div class="form-group">

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<title>HueServer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<div th:include="navbar">...</div>
+
+	<div class="bodyWrapper" style="width: 600px; margin: 0 auto;">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Available groups</h3>
+			</div>
+
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Name</th>
+						<th>Lights</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="row : ${groups}">
+						<td th:text="${row.key}"></td>
+						<td th:text="${row.value.getName()}"></td>
+						<td th:text="${row.value.getLights()}"></td>
+						<td>
+							<!-- Delete -->
+							<form method="post" action="/hue/groups/delete">
+								<input type="hidden" name="deleteId" th:value="${row.key}" />
+								<button type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</body>
+</html>

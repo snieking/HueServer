@@ -35,6 +35,17 @@ public class DailySchedulesController {
 		scene.getGoodNight().setEnabled(dailySchedule.isNightEnabled());
 		scene.getSunstatus().setEnabled(dailySchedule.isSunstatusEnabled());
 		
+		scene.getGoodMorning().setId(dailySchedule.getMorningScene());
+		scene.getGoodMorning().setGroup(dailySchedule.getMorningGroup());
+		scene.getGoodNight().setGroup(dailySchedule.getNightGroup());
+		scene.getSunstatus().setId(dailySchedule.getSunsetScene());
+		scene.getSunstatus().setGroup(dailySchedule.getSunstatusGroup());
+		
+		scene.getEvening().setEnabled(dailySchedule.isEveningEnabled());
+		scene.getEvening().setGroup(dailySchedule.getEveningGroup());
+		scene.getEvening().setId(dailySchedule.getEveningScene());
+		scene.getEvening().setTime(dailySchedule.getEveningTime());
+		
 		addSchedulesToModel(model);
 		return "dailySchedules";
 	}
@@ -57,6 +68,17 @@ public class DailySchedulesController {
 		dailySchedule.setMorningEnabled(scene.getGoodMorning().isEnabled());
 		dailySchedule.setNightEnabled(scene.getGoodNight().isEnabled());
 		dailySchedule.setSunstatusEnabled(scene.getSunstatus().isEnabled());
+		
+		dailySchedule.setMorningScene(scene.getGoodMorning().getId());
+		dailySchedule.setMorningGroup(scene.getGoodMorning().getGroup());
+		dailySchedule.setNightGroup(scene.getGoodNight().getGroup());
+		dailySchedule.setSunsetScene(scene.getSunstatus().getId());
+		dailySchedule.setSunstatusGroup(scene.getSunstatus().getGroup());
+		
+		dailySchedule.setEveningEnabled(scene.getEvening().isEnabled());
+		dailySchedule.setEveningGroup(scene.getEvening().getGroup());
+		dailySchedule.setEveningScene(scene.getEvening().getId());
+		dailySchedule.setEveningTime(scene.getEvening().getTime());
 		
 		model.addAttribute("dailySchedule", dailySchedule);
 	}
