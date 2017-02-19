@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<title>HueServer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<div th:include="navbar">...</div>
+
+	<div class="bodyWrapper">
+		<div class="alert alert-warning" role="alert">
+			In order to use this, make sure you first configure
+			spring.social.twitter.appId and spring.social.twitter.appSecret in <b>config/application.yml</b>
+			first!
+		</div>
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Configure Twitter Scanner</h3>
+			</div>
+			<form action="#" class="form-horizontal"
+				th:action="@{/twitterconfig}" th:object="${twitter}" method="post">
+
+				<div class="form-group" id="first">
+					<label for="morning">What regex should be used to scan?</label> <br />
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="regex"
+							placeholder="Ex: 05:00:00" th:field="*{regex}"></input>
+					</div>
+					<div class="col-md-4">
+						<div class="checkbox">
+							<label><input type="checkbox" name="enabled"
+								th:field="*{enabled}" />Twitter Scan enabled</label>
+						</div>
+					</div>
+				</div>
+
+				<hr />
+
+				<div class="form-group">
+					<label for="pwd">Which lamp group should blink?</label> <br />
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="group"
+							placeholder="Ex: (?!.*hour)(.*?(live|l i v e).*)"
+							th:field="*{group}"></input>
+					</div>
+				</div>
+
+				<hr />
+
+				<div class="form-group">
+					<label for="pwd">What twitter accounts should be scanned?
+						(Ex: SonieTV,NastyaFoxi,LIRIK)</label> <br />
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="users"
+							placeholder="Ex: SonieTV,NasyaFoxi,LIRIK" th:field="*{users}"></input>
+					</div>
+				</div>
+
+				<hr />
+
+				<div class="form-group">
+					<div class="col-md-10">
+						<button type="submit" class="btn btn-success btn-lg">Save</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>

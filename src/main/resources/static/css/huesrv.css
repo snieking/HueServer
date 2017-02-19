@@ -2,10 +2,6 @@ input[type=text] {
 
 }
 
-body {
-	padding: 50px;
-}
-
 .bodyWrapper {
 	width: 600px;
 	margin: 0 auto;
