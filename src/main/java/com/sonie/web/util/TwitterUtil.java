@@ -5,13 +5,12 @@
 
 package com.sonie.web.util;
 
+import com.sonie.web.resources.config.ApplicationConfiguration;
 import com.sonie.web.resources.twitter.TwitterScanRequest;
-
-import resources.internal.Configuration;
 
 public class TwitterUtil {
 	
-	public static TwitterScanRequest createTwitterRequest(Configuration config) {
+	public static TwitterScanRequest createTwitterRequest(ApplicationConfiguration config) {
 		TwitterScanRequest request = new TwitterScanRequest();
 		
 		request.setUsers(config.getTwitter().getUsers());

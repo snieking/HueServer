@@ -5,6 +5,11 @@
 
 package com.sonie.web.resources.hue;
 
+/**
+ * Request for setting a state on a group.
+ * 
+ * @author viktorplane
+ */
 public class HueSetGroupStateRequest {
 	private boolean on;
 	private String scene;

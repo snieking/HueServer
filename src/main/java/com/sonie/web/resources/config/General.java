@@ -3,10 +3,15 @@
  * file 'LICENSE.txt', which is part of this source code package.
  */
 
-package resources.internal;
+package com.sonie.web.resources.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * Stores the general config data.
+ * 
+ * @author viktorplane
+ */
 @ConfigurationProperties(prefix = "application.general")
 public class General {
 	private int timeZone;

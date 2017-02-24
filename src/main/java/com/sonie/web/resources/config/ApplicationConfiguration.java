@@ -3,17 +3,24 @@
  * file 'LICENSE.txt', which is part of this source code package.
  */
 
-package resources.internal;
+package com.sonie.web.resources.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
+import com.sonie.web.resources.hue.Hue;
+
+/**
+ * Main config file which stores the sub data.
+ * 
+ * @author viktorplane
+ */
 @RefreshScope
 @Service
 @EnableConfigurationProperties({ Hue.class, Twitter.class, General.class })
-public class Configuration {
+public class ApplicationConfiguration {
 	@Autowired
 	private Hue hue;
 

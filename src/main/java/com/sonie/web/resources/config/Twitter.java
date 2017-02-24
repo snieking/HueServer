@@ -3,12 +3,17 @@
  * file 'LICENSE.txt', which is part of this source code package.
  */
 
-package resources.internal;
+package com.sonie.web.resources.config;
 
 import java.util.List;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * Holds the Twitter configuration data.
+ * @author viktorplane
+ *
+ */
 @ConfigurationProperties(prefix = "application.twitter")
 public class Twitter {
 	private boolean enabled;

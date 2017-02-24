@@ -5,10 +5,12 @@
 
 package com.sonie.web.util;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class DateUtil {
 
@@ -73,5 +75,10 @@ public class DateUtil {
 		cal.add(Calendar.MINUTE, minutesBeforeSunset);
 		
 		return df.format(cal.getTime());
+	}
+	
+	public static String getCurrentW3cDateTime() {
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault());
+		return format.format(new Date()).replaceAll("(.*)(\\d\\d)$", "$1:$2");
 	}
 }

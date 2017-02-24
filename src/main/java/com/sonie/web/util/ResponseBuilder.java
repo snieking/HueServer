@@ -5,7 +5,7 @@
 
 package com.sonie.web.util;
 
-import resources.internal.ResponseHeader;
+import com.sonie.web.resources.internal.ResponseHeader;
 
 public class ResponseBuilder {
 	private static final String SUCCESS = "Executed Successfully";

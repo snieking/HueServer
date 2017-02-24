@@ -1,5 +1,10 @@
-package resources.internal;
+package com.sonie.web.resources.view.twitter;
 
+/**
+ * Used by the template while storing and populating Twitter config.
+ * 
+ * @author viktorplane
+ */
 public class TwitterConfig {
 	private String regex;
 	private String users;

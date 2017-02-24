@@ -9,20 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.async.DeferredResult;
 
+import com.sonie.web.resources.config.ApplicationConfiguration;
+import com.sonie.web.resources.hue.HueSetSceneRequest;
+import com.sonie.web.resources.hue.HueSetSceneResponse;
 import com.sonie.web.util.HueUtil;
 import com.sonie.web.util.ResponseBuilder;
-
-import resources.internal.Configuration;
-import resources.internal.HueSetSceneRequest;
-import resources.internal.HueSetSceneResponse;
 
 @Service
 public class HueUseCase {
 	
-	private Configuration configuration;
+	private ApplicationConfiguration configuration;
 	
 	@Autowired
-	public HueUseCase(Configuration configuration) {
+	public HueUseCase(ApplicationConfiguration configuration) {
 		this.configuration = configuration;
 	}
 	

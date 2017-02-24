@@ -16,13 +16,24 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sonie.web.resources.twitter.TwitterScanRequest;
 import com.sonie.web.usecase.TwitterUseCase;
 
+/**
+ * Twitter rest controller.
+ * 
+ * @author viktorplane
+ */
 @RestController
 public class TwitterController {
-	
+
 	@Autowired
 	private TwitterUseCase twitterUseCase;
-	
-	@RequestMapping(method = RequestMethod.PUT, value ="/twitter/tweets")
+
+	/**
+	 * Scan and parse tweets for blinking the Philips Hue system if match found
+	 * with what was configured.
+	 * 
+	 * @param request
+	 */
+	@RequestMapping(method = RequestMethod.PUT, value = "/twitter/tweets")
 	public void getTweets(@RequestBody @Valid TwitterScanRequest request) {
 		twitterUseCase.scanTweets(request);
 	}

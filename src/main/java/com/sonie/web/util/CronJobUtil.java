@@ -10,21 +10,26 @@ import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.support.CronTrigger;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.sonie.web.resources.config.ApplicationConfiguration;
+import com.sonie.web.resources.config.General;
+import com.sonie.web.resources.hue.Hue;
+import com.sonie.web.resources.hue.Hue.Scene.Sunstatus;
 import com.sonie.web.resources.weather.SunStatusResponse;
 
-import resources.internal.Configuration;
-import resources.internal.General;
-import resources.internal.Hue;
-import resources.internal.Hue.Scene.Sunstatus;
-
 @EnableScheduling
+@Service
 public class CronJobUtil {
 	private static final Logger LOG = LoggerFactory.getLogger(CronJobUtil.class);
+	
+	@Autowired
+	private RunnableUtil runnableUtil;
 
 	private CronJobUtil() {
 
@@ -37,7 +42,7 @@ public class CronJobUtil {
 	 * @param config
 	 * @throws ParseException
 	 */
-	public static void setDailySunJobs(TaskScheduler scheduler, Configuration config) throws ParseException {
+	public void setDailySunJobs(TaskScheduler scheduler, ApplicationConfiguration config) throws ParseException {
 		Sunstatus sunstatus = config.getHue().getScene().getSunstatus();
 		General general = config.getGeneral();
 
@@ -53,7 +58,7 @@ public class CronJobUtil {
 					config.getHue().getScene().getSunstatus().getSunsetAdjustedMinutes());
 
 			LOG.info("Sunset scheduled for [{}]", adjustedSunsetTime);
-			scheduler.schedule(RunnableUtil.setSunSet(LOG, config.getHue()),
+			scheduler.schedule(runnableUtil.setSunSet(LOG, config.getHue()),
 					new CronTrigger(DateUtil.getCronDate(adjustedSunsetTime)));
 
 			String rise = DateUtil.convert12UTFTo24WithTimeZone(response.getResults().getSunrise(),
@@ -61,7 +66,7 @@ public class CronJobUtil {
 			String adjustedSunriseTime = DateUtil.addOrRemoveMinutes(rise, sunstatus.getSunriseAdjustedMinutes());
 
 			LOG.info("Sunrise scheduled for [{}]", adjustedSunriseTime);
-			scheduler.schedule(RunnableUtil.setSunRise(LOG, config.getHue()),
+			scheduler.schedule(runnableUtil.setSunRise(LOG, config.getHue()),
 					new CronTrigger(DateUtil.getCronDate(adjustedSunriseTime)));
 		}
 	}
@@ -72,9 +77,9 @@ public class CronJobUtil {
 	 * @param scheduler
 	 * @param hue
 	 */
-	public static void setGoodNightJob(TaskScheduler scheduler, Hue hue) {
+	public void setGoodNightJob(TaskScheduler scheduler, Hue hue) {
 		if (hue.getScene().getGoodNight().isEnabled()) {
-			scheduler.schedule(RunnableUtil.setGoodNight(LOG, hue),
+			scheduler.schedule(runnableUtil.setGoodNight(LOG, hue),
 					new CronTrigger(DateUtil.getCronDate(hue.getScene().getGoodNight().getTime())));
 		}
 	}
@@ -86,11 +91,11 @@ public class CronJobUtil {
 	 * @param hue
 	 * @throws ParseException
 	 */
-	public static void setGoodMorningJob(TaskScheduler scheduler, Hue hue) throws ParseException {
+	public void setGoodMorningJob(TaskScheduler scheduler, Hue hue) throws ParseException {
 		if (hue.getScene().getGoodMorning().isEnabled()) {
 			if (DateUtil.isWeekday(DateUtil.getWeekday(new Date()))) {
 				LOG.info("Good night time is set for: [{}]", hue.getScene().getGoodNight().getTime());
-				scheduler.schedule(RunnableUtil.setGoodMorning(LOG, hue),
+				scheduler.schedule(runnableUtil.setGoodMorning(LOG, hue),
 						new CronTrigger(DateUtil.getCronDate(hue.getScene().getGoodMorning().getTime())));
 			}
 		}
@@ -102,10 +107,10 @@ public class CronJobUtil {
 	 * @param scheduler
 	 * @param hue
 	 */
-	public static void setEveningJob(TaskScheduler scheduler, Hue hue) {
+	public void setEveningJob(TaskScheduler scheduler, Hue hue) {
 		if (hue.getScene().getEvening().isEnabled()) {
 			LOG.info("Evening time is set for: [{}]", hue.getScene().getEvening().getTime());
-			scheduler.schedule(RunnableUtil.setEvening(LOG, hue),
+			scheduler.schedule(runnableUtil.setEvening(LOG, hue),
 					new CronTrigger(DateUtil.getCronDate(hue.getScene().getEvening().getTime())));
 		}
 	}
@@ -116,7 +121,7 @@ public class CronJobUtil {
 	 * @param scheduler
 	 * @param config
 	 */
-	public static void setDailyJobs(TaskScheduler scheduler, Configuration config) {
+	public void setDailyJobs(TaskScheduler scheduler, ApplicationConfiguration config) {
 		try {
 			setEveningJob(scheduler, config.getHue());
 			setGoodMorningJob(scheduler, config.getHue());

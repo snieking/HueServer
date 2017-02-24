@@ -3,8 +3,13 @@
  * file 'LICENSE.txt', which is part of this source code package.
  */
 
-package resources.internal;
+package com.sonie.web.resources.hue;
 
+/**
+ * Used for setting a scene request.
+ * 
+ * @author viktorplane
+ */
 public class HueSetSceneRequest {
 	private String id;
 	private String group;

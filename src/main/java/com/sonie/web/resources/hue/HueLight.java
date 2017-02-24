@@ -1,7 +1,12 @@
-package resources.internal;
+package com.sonie.web.resources.hue;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * Used to store a light when requesting the lights.
+ * 
+ * @author viktorplane
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HueLight {
 	private String name;

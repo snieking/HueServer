@@ -3,8 +3,15 @@
  * file 'LICENSE.txt', which is part of this source code package.
  */
 
-package resources.internal;
+package com.sonie.web.resources.hue;
 
+import com.sonie.web.resources.internal.ResponseHeader;
+
+/**
+ * Used for response from set scene.
+ * 
+ * @author viktorplane
+ */
 public class HueSetSceneResponse {
 	private ResponseHeader responseHeader;
 
