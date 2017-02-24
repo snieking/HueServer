@@ -14,15 +14,25 @@ import org.springframework.web.context.request.async.DeferredResult;
 import com.sonie.web.resources.weather.SunStatusResponse;
 import com.sonie.web.usecase.WeatherUseCase;
 
+/**
+ * Rest controller for weather data.
+ * 
+ * @author viktorplane
+ */
 @RestController
 public class WeatherController {
-	
+
 	@Autowired
 	public WeatherUseCase weatherUseCase;
-	
+
+	/**
+	 * Get the sun status; when sun goes up and down.
+	 * 
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/weather/sunstatus")
 	public DeferredResult<SunStatusResponse> dailySunStatus() {
-		
+
 		return weatherUseCase.getSunStatusUseCase();
 	}
 }

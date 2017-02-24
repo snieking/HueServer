@@ -3,8 +3,13 @@
  * file 'LICENSE.txt', which is part of this source code package.
  */
 
-package resources.internal;
+package com.sonie.web.resources.internal;
 
+/**
+ * The response header included in responses.
+ * 
+ * @author viktorplane
+ */
 public class ResponseHeader {
 	private int code;
 	private String result;

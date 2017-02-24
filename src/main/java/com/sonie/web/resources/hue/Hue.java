@@ -3,10 +3,15 @@
  * file 'LICENSE.txt', which is part of this source code package.
  */
 
-package resources.internal;
+package com.sonie.web.resources.hue;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * Hue configuration in the config file.
+ * 
+ * @author viktorplane
+ */
 @ConfigurationProperties(prefix = "application.hue")
 public class Hue {
 	private String user;
@@ -207,7 +212,7 @@ public class Hue {
 				this.group = group;
 			}
 		}
-		
+
 		public static class Evening {
 			private boolean enabled;
 			private String time;

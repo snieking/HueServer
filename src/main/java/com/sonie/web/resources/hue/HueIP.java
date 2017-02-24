@@ -1,7 +1,12 @@
-package resources.internal;
+package com.sonie.web.resources.hue;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * Stores the received Hue IP when requesting that.
+ * 
+ * @author viktorplane
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HueIP {
 	private String id;

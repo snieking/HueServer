@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import resources.internal.ResponseHeader;
+import com.sonie.web.resources.internal.ResponseHeader;
 
 public class ResponseHeaderUtilTest {
 	private ResponseHeader responseHeader;

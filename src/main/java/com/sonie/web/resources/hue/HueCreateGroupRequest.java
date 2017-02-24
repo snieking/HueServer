@@ -1,4 +1,4 @@
-package resources.internal;
+package com.sonie.web.resources.hue;
 
 import java.util.List;
 

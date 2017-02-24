@@ -19,16 +19,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
-import resources.internal.Configuration;
-import resources.internal.HueAddNewUserRequest;
-import resources.internal.HueAddNewUserResponse;
-import resources.internal.HueCreateGroupRequest;
-import resources.internal.HueGroup;
-import resources.internal.HueIP;
-import resources.internal.HueLight;
-import resources.internal.HueSetSceneRequest;
-import resources.internal.StringUtil;
+import com.sonie.web.resources.config.ApplicationConfiguration;
+import com.sonie.web.resources.hue.HueAddNewUserRequest;
+import com.sonie.web.resources.hue.HueAddNewUserResponse;
+import com.sonie.web.resources.hue.HueCreateGroupRequest;
+import com.sonie.web.resources.hue.HueIP;
+import com.sonie.web.resources.hue.HueLight;
+import com.sonie.web.resources.hue.HueSetSceneRequest;
+import com.sonie.web.resources.view.hue.HueGroup;
 
 public class HueUtil {
 
@@ -75,7 +73,7 @@ public class HueUtil {
 		return response[0].getSuccess().getUsername();
 	}
 
-	public static Map<String, String> getScenesWithId(Configuration config) {
+	public static Map<String, String> getScenesWithId(ApplicationConfiguration config) {
 		RestTemplate restTemplate = new RestTemplate();
 		Map<String, String> scenes = new HashMap<>();
 		
@@ -93,7 +91,7 @@ public class HueUtil {
 		return scenes;
 	}
 
-	public static Map<String, HueGroup> getGroupsWithId(Configuration config) {
+	public static Map<String, HueGroup> getGroupsWithId(ApplicationConfiguration config) {
 		RestTemplate restTemplate = new RestTemplate();
 		Map<String, HueGroup> groups = new HashMap<>();
 		
@@ -123,7 +121,7 @@ public class HueUtil {
 		return groups;
 	}
 	
-	public static Map<String, HueLight> getLightsWithId(Configuration config) {
+	public static Map<String, HueLight> getLightsWithId(ApplicationConfiguration config) {
 		RestTemplate restTemplate = new RestTemplate();
 		Map<String, HueLight> lights = new HashMap<>();
 		
@@ -147,21 +145,21 @@ public class HueUtil {
 		return lights;
 	}
 	
-	public static void deleteSceneWithId(String id, Configuration config) {
+	public static void deleteSceneWithId(String id, ApplicationConfiguration config) {
 		RestTemplate restTemplate = new RestTemplate();
 		String url = "http://" + config.getHue().getIp() + "/api/" + config.getHue().getUser() + "/scenes/" + id; 
 		
 		restTemplate.delete(url);
 	}
 
-	public static void deleteGroupWithId(String id, Configuration config) {
+	public static void deleteGroupWithId(String id, ApplicationConfiguration config) {
 		RestTemplate restTemplate = new RestTemplate();
 		String url = "http://" + config.getHue().getIp() + "/api/" + config.getHue().getUser() + "/groups/" + id; 
 		
 		restTemplate.delete(url);
 	}
 
-	public static void createGroupWithId(String name, String lights, Configuration config) {
+	public static void createGroupWithId(String name, String lights, ApplicationConfiguration config) {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		HueCreateGroupRequest request = new HueCreateGroupRequest();

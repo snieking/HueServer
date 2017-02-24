@@ -1,9 +1,14 @@
-package resources.internal;
+package com.sonie.web.resources.view.hue;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * Used by the templates to display Hue light groups.
+ * 
+ * @author viktorplane
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HueGroup {
 	private String name;

@@ -3,8 +3,13 @@
  * file 'LICENSE.txt', which is part of this source code package.
  */
 
-package resources.internal;
+package com.sonie.web.resources.internal;
 
+/**
+ * Enum for responses.
+ * 
+ * @author viktorplane
+ */
 public enum Response {
 	EXECUTED_SUCCESS, FAIL
 }

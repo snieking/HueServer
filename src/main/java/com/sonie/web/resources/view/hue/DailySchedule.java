@@ -1,5 +1,10 @@
-package resources.internal;
+package com.sonie.web.resources.view.hue;
 
+/**
+ * Stores the DailySchedule to use while rendering templates.
+ * 
+ * @author viktorplane
+ */
 public class DailySchedule {
 	private String morningTime;
 	private String nightTime;

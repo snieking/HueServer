@@ -7,6 +7,11 @@ package com.sonie.web.resources.twitter;
 
 import java.util.List;
 
+/**
+ * Used for requesting a Twitter scan.
+ * 
+ * @author viktorplane
+ */
 public class TwitterScanRequest {
 	private List<String> users;
 	private String regex;

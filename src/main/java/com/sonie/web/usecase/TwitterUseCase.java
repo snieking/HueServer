@@ -19,10 +19,12 @@ import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Service;
 
+import com.sonie.web.events.LightEventRepository;
+import com.sonie.web.events.LightEvent;
+import com.sonie.web.resources.config.ApplicationConfiguration;
 import com.sonie.web.resources.twitter.TwitterScanRequest;
+import com.sonie.web.util.DateUtil;
 import com.sonie.web.util.HueUtil;
-
-import resources.internal.Configuration;
 
 @Service
 public class TwitterUseCase {
@@ -31,7 +33,10 @@ public class TwitterUseCase {
 	private static HashSet<String> messages = new HashSet<>();
 
 	@Autowired
-	private Configuration config;
+	private ApplicationConfiguration config;
+	
+	@Autowired
+	private LightEventRepository lightEventRepository;
 
 	@Inject
 	public TwitterUseCase(Twitter twitter) {
@@ -55,6 +60,7 @@ public class TwitterUseCase {
 		}
 
 		if (messages.size() > size) {
+			lightEventRepository.save(new LightEvent(DateUtil.getCurrentW3cDateTime(), "Twitter"));
 			HueUtil.blinkLights(config.getHue().getIp(), config.getHue().getUser(), config.getTwitter().getGroup());
 		}
 	}
